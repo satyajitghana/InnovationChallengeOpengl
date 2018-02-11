@@ -48,6 +48,10 @@ public class TransformComponent extends Component{
 		
 	}
 	
+	public void glTranslate(float x, float y) {
+		glTranslatef(x, y, 0);
+		
+	}
 	public void glRotate() {
 		if(attachedTo.parent!=null) {
 			float rot = getWorldRot();

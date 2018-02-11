@@ -1,21 +1,29 @@
 	package engine;
 
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
+import static org.lwjgl.opengl.GL11.GL_LINEAR;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_COORD_ARRAY;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
 import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
-import static org.lwjgl.opengl.GL11.GL_VERTEX_ARRAY;
 import static org.lwjgl.opengl.GL11.GL_UNSIGNED_INT;
+import static org.lwjgl.opengl.GL11.GL_VERTEX_ARRAY;
 import static org.lwjgl.opengl.GL11.glDisableClientState;
 import static org.lwjgl.opengl.GL11.glDrawElements;
 import static org.lwjgl.opengl.GL11.glEnableClientState;
 import static org.lwjgl.opengl.GL11.glTexCoordPointer;
+import static org.lwjgl.opengl.GL11.glTexParameterf;
+import static org.lwjgl.opengl.GL11.glTexParameteri;
 import static org.lwjgl.opengl.GL11.glVertexPointer;
+import static org.lwjgl.opengl.GL14.GL_TEXTURE_LOD_BIAS;
 import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
+import static org.lwjgl.opengl.GL15.GL_ELEMENT_ARRAY_BUFFER;
 import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
 import static org.lwjgl.opengl.GL15.glBindBuffer;
 import static org.lwjgl.opengl.GL15.glBufferData;
 import static org.lwjgl.opengl.GL15.glGenBuffers;
-import static org.lwjgl.opengl.GL15.GL_ELEMENT_ARRAY_BUFFER;
+
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -26,8 +34,8 @@ import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
 public class Sprite {	
-	private float sx;
-	private float sy;
+	public float sx;
+	public float sy;
 	
 	private int draw_count;
 	private int v_id;
@@ -41,12 +49,7 @@ public class Sprite {
 	private Texture tex;
 	
 	public Sprite(String path, float sx, float sy) {
-		
-		try {
-			this.tex = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(path));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		loadTexture(path);
 		
 		this.sx = sx;
 		this.sy = sy;
@@ -55,7 +58,7 @@ public class Sprite {
 				0, this.sy,  	  //top left
 				this.sx, this.sy, //top right
 				this.sx, 0, 	  //bottom right
-				0,0,    		  //bottom left
+				0, 0   		  	  //bottom left
 		};
 		this.tex_coords = new float[] {
 				0,0,
@@ -116,7 +119,17 @@ public class Sprite {
 		}
 		glDisableClientState(GL_VERTEX_ARRAY);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		
+	}
+	
+	private void loadTexture(String path) {
+		try {
+			this.tex = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(path));
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public FloatBuffer createBuffer(float[] data) {

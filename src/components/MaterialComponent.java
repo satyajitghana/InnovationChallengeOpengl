@@ -21,6 +21,7 @@ public class MaterialComponent extends Component{
 		{
 			attachedTo.transform.glTranslate();
 			attachedTo.transform.glRotate();
+			attachedTo.transform.glTranslate(-sprite.sx/2, -sprite.sy/2);
 			sprite.render();
 		}
 		glPopMatrix();

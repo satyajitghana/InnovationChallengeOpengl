@@ -34,7 +34,7 @@ public class Main {
 	private static void initGame() {
 		game = new Game();
 		creator = new EntityCreator();
-		keyIn = new Input(creator.getPlayer());
+		keyIn = new Input(creator);
 	}
 	
 	private static void getInput() {
