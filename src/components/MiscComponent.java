@@ -1,5 +1,6 @@
 package components;
 
+import callback.Callback;
 import engine.Game;
 import entity.Entity;
 

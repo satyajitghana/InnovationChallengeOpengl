@@ -15,6 +15,7 @@ public class Game {
 
 	}
 	public void update() {
+		//System.out.println("number of components: "+(updateComponents.size()+renderComponents.size()));
 		for(int i=0;i<updateComponents.size();i++) {
 			Component c = updateComponents.get(i);
 			if(c.toRemove) {

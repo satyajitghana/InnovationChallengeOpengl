@@ -1,6 +1,7 @@
 package engine;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 
 import entity.Entity;
 import entity.EntityCreator;
@@ -27,6 +28,17 @@ public class Input {
 			if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
 				player.transform.move(1, 0);
 			}
+			
+			while(Mouse.next()) {
+				if(Mouse.getEventButtonState()) {
+					if(Mouse.getEventButton() == 0) {
+						Main.creator.createBullet();
+					}
+				}
+			}
+			
+			
+			
 		}
 		
 		
