@@ -31,9 +31,8 @@ public class TransformComponent extends Component{
 		ArrayList<Entity> children = attachedTo.getChildren();
 		for(int i=0;i<children.size();i++) {
 			Entity child = children.get(i);
-			for(int j=0;j<child.getComponents().size();j++) {
-				child.transform.translate(local_pos.x, local_pos.y);
-			}
+			System.out.println("x: "+child.transform.local_pos.x+" y: "+child.transform.local_pos.y);
+			child.transform.translate(local_pos.x, local_pos.y);
 		}
 		//System.out.println("x: +"+local_pos.x+"\ny: "+local_pos.y+"\n\n");
 	}

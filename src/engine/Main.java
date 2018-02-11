@@ -75,6 +75,8 @@ public class Main {
 		glMatrixMode(GL_MODELVIEW);
 		
 		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glDisable(GL_DEPTH_TEST);
 		glClearColor(0,0,0,0);
 		
