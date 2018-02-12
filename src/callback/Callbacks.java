@@ -46,13 +46,10 @@ public class Callbacks {
 			Entity player = (Entity)data[0];
 			
 			Vector2f pos = player.transform.pos;
-			Vector2f mouse_pos = new Vector2f(Mouse.getX(), Mouse.getY());
-		
-			//bad rotation code. works but glitches sometimes
-			float alpha = (float) Math.toDegrees(Math.atan((mouse_pos.y - pos.y)/(mouse_pos.x - pos.x)));
+			Vector2f mouse_pos = new Vector2f(Mouse.getX(), Mouse.getY());	
 			
-			player.transform.rotate((mouse_pos.x>pos.x) ? alpha-90 : alpha + 90);			
-			
+			float alpha = (float) Math.toDegrees(Math.atan2(mouse_pos.y - pos.y, mouse_pos.x - pos.x));
+			player.transform.rotate(alpha - 90);
 		};
 	}
 	
