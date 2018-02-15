@@ -352,6 +352,7 @@ public class ASearch {
 	}
 
 	public static void main(String [] args) {
+		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
 		System.out.println("Enter the Size of the GRID , M X N ");
 		boolean [][]grid = new boolean[input.nextInt()][input.nextInt()];
