@@ -24,7 +24,10 @@ public class BrutePhysics {
 				
 				if(e1.id == EntityID.player) {
 					if(e2.id == EntityID.wall) {
-						e1.collisionComponent.getAABB().getCollision(e2.collisionComponent.getAABB());
+						Collision data = e1.collisionComponent.getAABB().getCollision(e2.collisionComponent.getAABB());
+						if(data.isIntersecting) {
+							e1.collisionComponent.getAABB().correctPosition(e2.collisionComponent.getAABB(), data);
+						}
 					}
 				}
 			}
