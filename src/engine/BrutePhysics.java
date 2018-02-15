@@ -1,7 +1,5 @@
 package engine;
 
-import java.awt.Rectangle;
-
 import components.ComponentID;
 import entity.Entity;
 import entity.EntityID;
@@ -41,9 +39,5 @@ public class BrutePhysics {
 				}
 			}
 		}
-	}
-	
-	public boolean isColliding(Rectangle b1, Rectangle b2){
-		return b1.intersects(b2);
 	}
 }
