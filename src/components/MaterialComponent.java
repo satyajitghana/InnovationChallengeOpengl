@@ -7,9 +7,9 @@ import entity.Entity;
 
 public class MaterialComponent extends Component{
 
-	private Sprite sprite;
+	public Sprite sprite;
 	public MaterialComponent(Entity attachedTo, Sprite sprite) {
-		super(ComponentID.Material, attachedTo);
+		super(ComponentID.material, attachedTo);
 		
 		this.sprite = sprite;
 		
@@ -26,5 +26,4 @@ public class MaterialComponent extends Component{
 		}
 		glPopMatrix();
 	}
-
 }

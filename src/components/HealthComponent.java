@@ -9,7 +9,7 @@ public class HealthComponent extends Component{
 	public float currentHealth;
 	
 	public HealthComponent(Entity attachedTo, int maxHealth) {
-		super(ComponentID.Health, attachedTo);
+		super(ComponentID.health, attachedTo);
 		this.maxHealth = maxHealth;
 		this.currentHealth = maxHealth;
 		

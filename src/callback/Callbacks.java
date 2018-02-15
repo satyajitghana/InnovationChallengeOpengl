@@ -1,7 +1,7 @@
 package callback;
 
+import org.joml.Vector2f;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.util.vector.Vector2f;
 
 import engine.Main;
 import entity.Entity;

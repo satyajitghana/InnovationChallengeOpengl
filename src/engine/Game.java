@@ -3,16 +3,17 @@ package engine;
 import java.util.ArrayList;
 
 import components.Component;
+import rooms.Room;
 
 public class Game {
 
 	public static ArrayList<Component> updateComponents;
 	public static ArrayList<Component> renderComponents;
+	public static Room currentRoom;
 	
 	public Game() {
 		updateComponents = new ArrayList<Component>();
 		renderComponents = new ArrayList<Component>();
-
 	}
 	public void update() {
 		//System.out.println("number of components: "+(updateComponents.size()+renderComponents.size()));

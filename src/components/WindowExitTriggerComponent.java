@@ -1,6 +1,7 @@
 package components;
 
-import org.lwjgl.util.vector.Vector2f;
+
+import org.joml.Vector2f;
 
 import callback.Callback;
 import engine.Game;
@@ -15,7 +16,7 @@ public class WindowExitTriggerComponent extends Component{
 	private float offset;
 	
 	public WindowExitTriggerComponent(Entity attachedTo, float offset, Callback c, Object... data) {
-		super(ComponentID.WindowTrigger, attachedTo);
+		super(ComponentID.windowTrigger, attachedTo);
 		
 		this.c = c;
 		this.attachedTo = attachedTo;

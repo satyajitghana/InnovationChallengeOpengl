@@ -2,5 +2,6 @@ package entity;
 
 public enum EntityID {
 	player, 
-	bullet;
+	bullet, 
+	wall;
 }

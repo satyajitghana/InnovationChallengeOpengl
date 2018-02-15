@@ -9,7 +9,7 @@ public class MiscComponent extends Component{
 	private Callback c;
 	private Object[] data;
 	public MiscComponent(Entity attachedTo, Callback c, Object...data) {
-		super(ComponentID.Misc, attachedTo);
+		super(ComponentID.misc, attachedTo);
 		this.c = c;
 		this.data = data;
 		Game.updateComponents.add(this);
@@ -19,6 +19,4 @@ public class MiscComponent extends Component{
 	public void update() {
 		c.execute(data);
 	}
-	
-
 }

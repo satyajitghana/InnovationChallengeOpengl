@@ -3,7 +3,7 @@ package components;
 import static org.lwjgl.opengl.GL11.glRotatef;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 
-import org.lwjgl.util.vector.Vector2f;
+import org.joml.Vector2f;
 
 import engine.Game;
 import entity.Entity;
@@ -12,10 +12,10 @@ public class TransformComponent extends Component{
 	public Vector2f pos;
 	public float rot;
 	
-	private float speed;
+	public float speed;
 	
 	public TransformComponent(Entity attachedTo, Vector2f pos, float rot, float speed) {
-		super(ComponentID.Transform, attachedTo);
+		super(ComponentID.transform, attachedTo);
 		
 		this.pos = pos;
 		this.rot = rot;
