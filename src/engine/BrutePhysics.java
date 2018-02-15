@@ -17,7 +17,7 @@ public class BrutePhysics {
 			if(Game.updateComponents.get(i).getId() != ComponentID.collision) continue;
 			
 			Entity e1 = Game.updateComponents.get(i).getAttachedTo();
-			for(int j=i;j<Game.updateComponents.size();j++) {
+			for(int j=0;j<Game.updateComponents.size();j++) {
 				if(Game.updateComponents.get(j).getId() != ComponentID.collision) continue;
 				
 				Entity e2 = Game.updateComponents.get(j).getAttachedTo();
@@ -27,6 +27,15 @@ public class BrutePhysics {
 						Collision data = e1.collisionComponent.getAABB().getCollision(e2.collisionComponent.getAABB());
 						if(data.isIntersecting) {
 							e1.collisionComponent.getAABB().correctPosition(e2.collisionComponent.getAABB(), data);
+						}
+					}
+				}
+				
+				if(e1.id == EntityID.bullet) {
+					if(e2.id == EntityID.wall) {
+						Collision data = e1.collisionComponent.getAABB().getCollision(e2.collisionComponent.getAABB());
+						if(data.isIntersecting) {
+							e1.destroy();
 						}
 					}
 				}

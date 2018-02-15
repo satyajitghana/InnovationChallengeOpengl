@@ -49,7 +49,6 @@ public class Main {
 			getInput();
 			update();
 			render();
-			//System.out.println("x: "+creator.getPlayer().transform.pos.x+" y: "+creator.getPlayer().transform.pos.y);
 		}
 	}
 	

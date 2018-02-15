@@ -25,10 +25,10 @@ public class Physics {
 	}
 	
 	public void update() {
-		//detectCollisions();
+		detectCollisions();
 	}
 	
-	/*public void detectCollisions() {
+	public void detectCollisions() {
 		initMap();
 		populateCollisionMap();
 		
@@ -40,15 +40,17 @@ public class Physics {
 					Entity e2 = cs.get(k).getAttachedTo();
 					
 					if(e1.id == EntityID.player) {
-						Collision data = e1.collisionComponent.getAABB().getCollision(e2.collisionComponent.getAABB());
-						if(e2.id == EntityID.wall && data.isIntersecting) {
-							e1.collisionComponent.getAABB().correctPosition(e1, data);
+						if(e2.id == EntityID.wall) {
+							Collision data = e1.collisionComponent.getAABB().getCollision(e2.collisionComponent.getAABB());
+							if(data.isIntersecting) {
+								e1.collisionComponent.getAABB().correctPosition(e2.collisionComponent.getAABB(), data);
+							}
 						}
 					}
 				}
 			}
 		}
-	}*/
+	}
 	
 	private void populateCollisionMap() {
 		// maps entities to cell number 
