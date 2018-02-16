@@ -24,7 +24,7 @@ public class HealthComponent extends Component{
 	}
 	
 	public void reduceHealth(float damage) {
-		System.out.println(currentHealth);
+		this.currentHealth-=damage;
 	}
 	
 	public void increaseHealth(float increase) {
