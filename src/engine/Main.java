@@ -31,7 +31,6 @@ public class Main {
 	
 	private static Game game;
 	private static Input keyIn;
-	private static BrutePhysics phy;
 	public static EntityCreator creator;
 	public static Callbacks c;
 	
@@ -58,7 +57,6 @@ public class Main {
 		creator = new EntityCreator();
 		keyIn = new Input(creator);
 		creator.createRoom(0, "res/data/room1.txt");
-		phy = new BrutePhysics();
 	}
 	
 	private static void getInput() {
@@ -67,7 +65,6 @@ public class Main {
 	
 	private static void update() {
 		game.update();
-		phy.update();
 	}
 	
 	private static void render() {

@@ -3,8 +3,13 @@ package callback;
 import org.joml.Vector2f;
 import org.lwjgl.input.Mouse;
 
+import components.Component;
+import components.ComponentID;
+import engine.Collision;
+import engine.Game;
 import engine.Main;
 import entity.Entity;
+import entity.EntityID;
 
 public class Callbacks {
 	
@@ -59,6 +64,42 @@ public class Callbacks {
 			Vector2f dir = (Vector2f) data[1];
 			
 			bullet.transform.move(dir.x, dir.y);
+		};
+	}
+	
+	public Callback playerCollision() {
+		return (Object[] data, Object... extra)-> {
+			Entity player = (Entity) data[0];
+			for(int i=0;i<Game.updateComponents.size();i++) {
+				Entity e = Game.updateComponents.get(i).getAttachedTo();
+				if(e.collisionComponent.getId() == null) continue;
+				
+				if(e.id == EntityID.wall) {
+					Collision c = player.collisionComponent.getAABB().getCollision(e.collisionComponent.getAABB());
+					if(c.isIntersecting) {
+						player.collisionComponent.getAABB().correctPosition(e.collisionComponent.getAABB(), c);
+					}
+				}
+				
+			}
+		};
+	}
+	
+	public Callback bulletCollision() {
+		return (Object[] data, Object... extra)-> {
+			Entity bullet = (Entity) data[0];
+			for(int i=0;i<Game.updateComponents.size();i++) {
+				Entity e = Game.updateComponents.get(i).getAttachedTo();
+				if(e.collisionComponent.getId() == null) continue;
+				
+				if(e.id == EntityID.wall) {
+					Collision c = bullet.collisionComponent.getAABB().getCollision(e.collisionComponent.getAABB());
+					if(c.isIntersecting) {
+						bullet.destroy();
+					}
+				}
+				
+			}
 		};
 	}
 }

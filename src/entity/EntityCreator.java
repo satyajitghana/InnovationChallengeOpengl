@@ -32,7 +32,7 @@ public class EntityCreator {
 		player.addComponent(new HealthComponent(player, 100));
 		player.addComponent(new MiscComponent(player, Main.c.mouseFollowRotation(), player));
 		player.addComponent(new WindowExitTriggerComponent(player, 0, Main.c.inWindow(), player));
-		player.addComponent(new CollisionComponent(player, player_size/2, player_size/2));
+		player.addComponent(new CollisionComponent(player, player_size/2, player_size/2, Main.c.playerCollision(), player));
 		
 	}
 	
@@ -49,7 +49,7 @@ public class EntityCreator {
 		bullet.addComponent(new MaterialComponent(bullet, new Sprite("res/images/bullet.png", 8, 8)));
 		bullet.addComponent(new MiscComponent(bullet, Main.c.propel(), bullet, dir));
 		bullet.addComponent(new WindowExitTriggerComponent(bullet, 50, Main.c.windowExitRemove(), bullet));
-		bullet.addComponent(new CollisionComponent(bullet, 8, 8));
+		bullet.addComponent(new CollisionComponent(bullet, 8, 8, Main.c.bulletCollision(), bullet));
 	}
 	
 	public Entity createWall(float x, float y, float rot, float sx, float sy) {
@@ -57,7 +57,7 @@ public class EntityCreator {
 		
 		wall.addComponent(new TransformComponent(wall, new Vector2f(x, y), rot, 0));
 		wall.addComponent(new MaterialComponent(wall, new Sprite("/res/images/wall.png", sx, sy)));
-		wall.addComponent(new CollisionComponent(wall, sx, sy));
+		wall.addComponent(new CollisionComponent(wall, sx, sy, null));
 		
 		return wall;
 	}
