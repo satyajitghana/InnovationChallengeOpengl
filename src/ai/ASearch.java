@@ -35,7 +35,7 @@ public class ASearch {
 		int row = dest.first;
 		int column = dest.second;
 
-		Stack <Pair> path = new Stack <Pair>();
+		Stack <Pair <Integer, Integer>> path = new Stack <Pair <Integer, Integer>>();
 		while ( !(cellDetails[row][column].parent_i == row
 					&& cellDetails[row][column].parent_j == column) ) {
 			path.push(new Pair <Integer, Integer>(row, column) );
