@@ -6,5 +6,6 @@ public enum ComponentID {
 	material,
 	windowTrigger,
 	misc, 
-	collision;
+	collision,
+	AI;
 }

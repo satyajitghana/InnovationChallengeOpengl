@@ -1,7 +1,7 @@
 package ai;
 
 // Generic Type Class Pair to store two values
-class Pair <T extends Comparable <? super T>, E extends Comparable < ? super E>> implements Comparable <Pair <T, E>> {
+public class Pair <T extends Comparable <? super T>, E extends Comparable < ? super E>> implements Comparable <Pair <T, E>> {
 	public T first;
 	public E second;
 

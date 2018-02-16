@@ -6,8 +6,6 @@ import java.util.HashMap;
 
 import components.Component;
 import components.ComponentID;
-import entity.Entity;
-import entity.EntityID;
 
 public class Physics {
 	
@@ -25,32 +23,10 @@ public class Physics {
 	}
 	
 	public void update() {
-		detectCollisions();
-	}
-	
-	public void detectCollisions() {
 		initMap();
 		populateCollisionMap();
-		
-		for(int i=0;i<collisionMap.size();i++) {
-			ArrayList<Component> cs = collisionMap.get(i);
-			for(int j = 0;j<cs.size();j++) { //goes through all keys of hash map
-				for(int k = j;k<cs.size();k++) {
-					Entity e1 = cs.get(j).getAttachedTo();
-					Entity e2 = cs.get(k).getAttachedTo();
-					
-					if(e1.id == EntityID.player) {
-						if(e2.id == EntityID.wall) {
-							Collision data = e1.collisionComponent.getAABB().getCollision(e2.collisionComponent.getAABB());
-							if(data.isIntersecting) {
-								e1.collisionComponent.getAABB().correctPosition(e2.collisionComponent.getAABB(), data);
-							}
-						}
-					}
-				}
-			}
-		}
 	}
+	
 	
 	private void populateCollisionMap() {
 		// maps entities to cell number 
