@@ -23,11 +23,11 @@ public class HealthComponent extends Component{
 		}
 	}
 	
-	public void reduceHealth(int damage) {
-		this.currentHealth-=damage;
+	public void reduceHealth(float damage) {
+		System.out.println(currentHealth);
 	}
 	
-	public void increaseHealth(int increase) {
+	public void increaseHealth(float increase) {
 		this.currentHealth+=increase;
 	}
 

@@ -3,5 +3,6 @@ package entity;
 public enum EntityID {
 	player, 
 	bullet, 
-	wall;
+	wall,
+	enemy;
 }

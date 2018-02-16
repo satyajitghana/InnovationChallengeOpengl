@@ -3,8 +3,6 @@ package callback;
 import org.joml.Vector2f;
 import org.lwjgl.input.Mouse;
 
-import components.Component;
-import components.ComponentID;
 import engine.Collision;
 import engine.Game;
 import engine.Main;
@@ -45,15 +43,21 @@ public class Callbacks {
 		};
 	}
 	
-	public Callback mouseFollowRotation() {
+	public Callback followRotation() {
 		return (Object[] data, Object... extra)-> {
 			
 			Entity player = (Entity)data[0];
 			
 			Vector2f pos = player.transform.pos;
-			Vector2f mouse_pos = new Vector2f(Mouse.getX(), Mouse.getY());	
+			Vector2f target_pos;
+			if(data[1].equals("Mouse"))
+				target_pos = new Vector2f(Mouse.getX(), Mouse.getY());	
+			else {
+				Entity e = (Entity) data[1];
+				target_pos = new Vector2f(e.transform.pos.x, e.transform.pos.y);
+			}
 			
-			float alpha = (float) Math.toDegrees(Math.atan2(mouse_pos.y - pos.y, mouse_pos.x - pos.x));
+			float alpha = (float) Math.toDegrees(Math.atan2(target_pos.y - pos.y, target_pos.x - pos.x));
 			player.transform.rotate(alpha - 90);
 		};
 	}
@@ -96,6 +100,31 @@ public class Callbacks {
 					Collision c = bullet.collisionComponent.getAABB().getCollision(e.collisionComponent.getAABB());
 					if(c.isIntersecting) {
 						bullet.destroy();
+					}
+				}
+				
+			}
+		};
+	}
+	
+	public Callback enemyCollision() {
+		return (Object[] data, Object... extra)-> {
+			Entity enemy = (Entity) data[0];
+			for(int i=0;i<Game.updateComponents.size();i++) {
+				Entity e = Game.updateComponents.get(i).getAttachedTo();
+				if(e.collisionComponent.getId() == null) continue;
+				
+				if(e.id == EntityID.wall) {
+					Collision c = enemy.collisionComponent.getAABB().getCollision(e.collisionComponent.getAABB());
+					if(c.isIntersecting) {
+						enemy.collisionComponent.getAABB().correctPosition(e.collisionComponent.getAABB(), c);
+					}
+				}
+				else if(e.id == EntityID.bullet) {
+					Collision c = enemy.collisionComponent.getAABB().getCollision(e.collisionComponent.getAABB());
+					if(c.isIntersecting) {
+						e.destroy();
+						enemy.health.reduceHealth(1.42f);
 					}
 				}
 				

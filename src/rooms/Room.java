@@ -38,6 +38,9 @@ public class Room {
 			if(stuff[0].equals("wall")) {
 				entities.add(Main.creator.createWall(Integer.parseInt(stuff[1]), Integer.parseInt(stuff[2]), Integer.parseInt(stuff[3]), Integer.parseInt(stuff[4]), Integer.parseInt(stuff[5])));
 			}
+			else if(stuff[0].equals("enemy")) {
+				entities.add(Main.creator.createEnemy(Integer.parseInt(stuff[1]), Integer.parseInt(stuff[2]), Integer.parseInt(stuff[3]), Integer.parseInt(stuff[4]), Integer.parseInt(stuff[5])));
+			}
 		}
 		br.close();
 	}

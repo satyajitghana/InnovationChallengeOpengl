@@ -30,7 +30,7 @@ public class EntityCreator {
 		player.addComponent(new TransformComponent(player, new Vector2f(Display.getWidth()/2 - player_size/2, Display.getHeight()/2 - player_size/2), 0, player_speed));
 		player.addComponent(new MaterialComponent(player, new Sprite("/res/images/player.png",player_size, player_size)));
 		player.addComponent(new HealthComponent(player, 100));
-		player.addComponent(new MiscComponent(player, Main.c.mouseFollowRotation(), player));
+		player.addComponent(new MiscComponent(player, Main.c.followRotation(), player, "Mouse"));
 		player.addComponent(new WindowExitTriggerComponent(player, 0, Main.c.inWindow(), player));
 		player.addComponent(new CollisionComponent(player, player_size/2, player_size/2, Main.c.playerCollision(), player));
 		
@@ -50,6 +50,20 @@ public class EntityCreator {
 		bullet.addComponent(new MiscComponent(bullet, Main.c.propel(), bullet, dir));
 		bullet.addComponent(new WindowExitTriggerComponent(bullet, 50, Main.c.windowExitRemove(), bullet));
 		bullet.addComponent(new CollisionComponent(bullet, 8, 8, Main.c.bulletCollision(), bullet));
+	}
+	
+	public Entity createEnemy(float x, float y, float rot, float sx, float sy) {
+		Entity enemy = new Entity(EntityID.enemy);
+		
+		enemy.addComponent(new TransformComponent(enemy, new Vector2f(x, y), rot, 4));
+		enemy.addComponent(new MaterialComponent(enemy, new Sprite("res/images/enemy.png", sx, sy)));
+		enemy.addComponent(new WindowExitTriggerComponent(enemy, 0, Main.c.inWindow(), enemy));
+		enemy.addComponent(new CollisionComponent(enemy, sx, sy, Main.c.enemyCollision(), enemy));
+		enemy.addComponent(new HealthComponent(enemy, 100));
+		enemy.addComponent(new MiscComponent(enemy, Main.c.followRotation(), enemy, player));
+		
+		return enemy;
+		
 	}
 	
 	public Entity createWall(float x, float y, float rot, float sx, float sy) {
