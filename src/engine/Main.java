@@ -45,10 +45,32 @@ public class Main {
 	}
 	
 	private static void gameLoop() {
+		long lastTime = System.nanoTime();
+		long now;
+		long timer = System.currentTimeMillis();
+		double delta = 0;
+		int frames = 0;
+		int updates = 0;
+		int ups = 80; //runs at 60 updates per second. difference due to Display.sync(60)?
+		
 		while(!Display.isCloseRequested()) {
-			getInput();
-			update();
+			now = System.nanoTime();
+			delta += (now - lastTime)/(1000000000/ups);
+			lastTime = now;
+			while (delta >= 1) {
+				getInput();
+				update();
+				updates++;
+				delta--;
+			}
 			render();
+			frames++;
+			if (System.currentTimeMillis() - timer > 1000) {
+	            timer += 1000;
+	            System.out.println(updates + " ups, " + frames + " fps");
+	            updates = 0;
+	            frames = 0;
+	         }
 		}
 	}
 	
