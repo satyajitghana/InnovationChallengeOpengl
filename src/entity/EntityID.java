@@ -4,5 +4,6 @@ public enum EntityID {
 	player, 
 	bullet, 
 	wall,
-	enemy;
+	enemy, 
+	gate;
 }

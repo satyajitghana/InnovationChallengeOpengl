@@ -2,7 +2,6 @@ package entity;
 
 import org.joml.Vector2f;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
 
 import components.CollisionComponent;
 import components.HealthComponent;
@@ -21,16 +20,17 @@ public class EntityCreator {
 	
 	public EntityCreator() {
 		this.player = new Entity(EntityID.player);
-		createPlayer();
 	}
 	
-	public void createPlayer() {
-		player.addComponent(new TransformComponent(player, new Vector2f(Display.getWidth()/2 - player_size/2, Display.getHeight()/2 - player_size/2), 0, player_speed));
+	public Entity createPlayer(float x, float y, float rot) {
+		player.addComponent(new TransformComponent(player, new Vector2f(x, y), rot, player_speed));
 		player.addComponent(new MaterialComponent(player, new Sprite("/res/images/player.png",player_size, player_size)));
 		player.addComponent(new HealthComponent(player, 100));
 		player.addComponent(new MiscComponent(player, Main.c.followRotation(), player, "Mouse"));
 		player.addComponent(new WindowExitTriggerComponent(player, 0, Main.c.inWindow(), player));
 		player.addComponent(new CollisionComponent(player, player_size/2, player_size/2, Main.c.playerCollision(), player));
+		
+		return player;
 		
 	}
 	
@@ -72,6 +72,15 @@ public class EntityCreator {
 		wall.addComponent(new CollisionComponent(wall, sx, sy, null));
 		
 		return wall;
+	}
+	public Entity createGate(float x, float y, float rot, float sx, float sy, int targetRoom) {
+		Entity gate = new Entity(EntityID.gate);
+		
+		gate.addComponent(new TransformComponent(gate, new Vector2f(x, y), rot, 0));
+		gate.addComponent(new MaterialComponent(gate, new Sprite("/res/images/gateDisabled.png", sx, sy)));
+		gate.addComponent(new CollisionComponent(gate, sx, sy, Main.c.gateCollision(), gate, targetRoom));
+		
+		return gate;
 	}
 	
 	public Entity getPlayer() {

@@ -16,7 +16,7 @@ public class RoomMap {
 		roomMap = new HashMap<Integer, String>();
 		visted = new ArrayList<Integer>();
 		loadRoomMap(path);
-		visit(0);
+		visit(0, 0);
 	}
 	
 	private void loadRoomMap(String path){
@@ -35,11 +35,12 @@ public class RoomMap {
 		
 	}
 	
-	public static void visit(int roomID) {
-		currentRoom = new Room(roomID, roomMap.get(roomID));
+	public static void visit(int currentRoomID, int targetRoomID) {
+		if(currentRoom!=null && !visted.contains(currentRoomID)) {
+			visted.add(currentRoomID);
+		}
+		currentRoom = new Room(targetRoomID, roomMap.get(targetRoomID));
 		currentRoom.loadRoom();
-		if(!visted.contains(roomID))
-			visted.add(roomID);
 	}
 
 }

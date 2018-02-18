@@ -8,6 +8,7 @@ import engine.Game;
 import engine.Main;
 import entity.Entity;
 import entity.EntityID;
+import rooms.RoomMap;
 
 public class Callbacks {
 	
@@ -129,6 +130,29 @@ public class Callbacks {
 				}
 				
 			}
+		};
+	}
+	
+	public Callback gateCollision() {
+		return (Object[] data, Object... extra)-> {
+			if(!RoomMap.currentRoom.gateEnabled) return;
+			
+			int targetRoom = (int) data[1];
+			Entity gate = (Entity) data[0];
+			for(int i=0;i<Game.updateComponents.size();i++) {
+				Entity e = Game.updateComponents.get(i).getAttachedTo();
+				if(e.collisionComponent.getId() == null) continue;
+				
+				if(e.id == EntityID.player) {
+					Collision c = gate.collisionComponent.getAABB().getCollision(e.collisionComponent.getAABB());
+					if(c.isIntersecting) {
+						RoomMap.currentRoom.destory();
+						RoomMap.visit(RoomMap.currentRoom.room_id,targetRoom);
+					}
+				}
+				
+			}
+			
 		};
 	}
 }

@@ -82,6 +82,8 @@ public class Main {
 		keyIn = new Input(creator);
 		emap = new EntitiesMap();
 		new RoomMap("res/data/roomMap.data");
+		creator.getPlayer().transform.pos.x = 400;
+		creator.getPlayer().transform.pos.y = 300;
 	}
 	
 	private static void getInput() {
@@ -91,6 +93,7 @@ public class Main {
 	private static void update() {
 		game.update();
 		emap.update();
+		RoomMap.currentRoom.update();
 	}
 	
 	private static void render() {
@@ -134,5 +137,4 @@ public class Main {
 		Display.destroy();
 		Keyboard.destroy();
 	}
-
 }

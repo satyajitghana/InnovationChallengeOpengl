@@ -2,6 +2,8 @@ package components;
 
 import engine.Game;
 import entity.Entity;
+import entity.EntityID;
+import rooms.RoomMap;
 
 public class HealthComponent extends Component{
 
@@ -20,6 +22,8 @@ public class HealthComponent extends Component{
 	public void update() {
 		if(currentHealth<=0){
 			attachedTo.destroy();
+			if(attachedTo.id == EntityID.enemy)
+				RoomMap.currentRoom.enemyCount-=1;
 		}
 	}
 	

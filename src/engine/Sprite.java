@@ -121,7 +121,7 @@ public class Sprite {
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 	
-	private void loadTexture(String path) {
+	public void loadTexture(String path) {
 		try {
 			this.tex = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(path));
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
