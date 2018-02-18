@@ -84,6 +84,7 @@ public class Main {
 		new RoomMap("res/data/roomMap.data");
 		creator.getPlayer().transform.pos.x = 400;
 		creator.getPlayer().transform.pos.y = 300;
+		
 	}
 	
 	private static void getInput() {
