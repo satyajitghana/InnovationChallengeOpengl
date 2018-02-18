@@ -11,12 +11,12 @@ import engine.Main;
 import entity.Entity;
 
 public class Room {
-	public float room_id;
+	public int room_id;
 	
 	private String path;
 	private ArrayList<Entity> entities;
 	
-	public Room(float room_id, String path) {
+	public Room(int room_id, String path) {
 		this.entities = new ArrayList<Entity>();
 		this.path = path;
 	}
@@ -38,7 +38,7 @@ public class Room {
 			if(stuff[0].equals("wall")) {
 				entities.add(Main.creator.createWall(Integer.parseInt(stuff[1]), Integer.parseInt(stuff[2]), Integer.parseInt(stuff[3]), Integer.parseInt(stuff[4]), Integer.parseInt(stuff[5])));
 			}
-			else if(stuff[0].equals("enemy")) {
+			else if(stuff[0].equals("enemy") && !RoomMap.visted.contains(room_id)) {
 				entities.add(Main.creator.createEnemy(Integer.parseInt(stuff[1]), Integer.parseInt(stuff[2]), Integer.parseInt(stuff[3]), Integer.parseInt(stuff[4]), Integer.parseInt(stuff[5])));
 			}
 		}

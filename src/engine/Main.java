@@ -24,6 +24,7 @@ import org.lwjgl.opengl.DisplayMode;
 
 import callback.Callbacks;
 import entity.EntityCreator;
+import rooms.RoomMap;
 public class Main {
 	
 	public static final int WIDTH = 800;
@@ -31,7 +32,7 @@ public class Main {
 	
 	private static Game game;
 	private static Input keyIn;
-	private static EntitiesMap map;
+	private static EntitiesMap emap;
 	public static EntityCreator creator;
 	public static Callbacks c;
 	
@@ -79,8 +80,8 @@ public class Main {
 		c = new Callbacks();
 		creator = new EntityCreator();
 		keyIn = new Input(creator);
-		creator.createRoom(0, "res/data/room1.txt");
-		map = new EntitiesMap();
+		emap = new EntitiesMap();
+		new RoomMap("res/data/roomMap.data");
 	}
 	
 	private static void getInput() {
@@ -89,7 +90,7 @@ public class Main {
 	
 	private static void update() {
 		game.update();
-		map.update();
+		emap.update();
 	}
 	
 	private static void render() {

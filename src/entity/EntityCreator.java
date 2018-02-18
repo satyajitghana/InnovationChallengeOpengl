@@ -10,10 +10,8 @@ import components.MaterialComponent;
 import components.MiscComponent;
 import components.TransformComponent;
 import components.WindowExitTriggerComponent;
-import engine.Game;
 import engine.Main;
 import engine.Sprite;
-import rooms.Room;
 
 public class EntityCreator {
 	public static final int player_size = 80;
@@ -76,10 +74,6 @@ public class EntityCreator {
 		return wall;
 	}
 	
-	public void createRoom(int id, String path) {
-		Game.currentRoom = new Room(id, path);
-		Game.currentRoom.loadRoom();
-	}
 	public Entity getPlayer() {
 		return this.player;
 	}
