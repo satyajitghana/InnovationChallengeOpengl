@@ -29,13 +29,15 @@ public class ASearch {
 									+ (column - dest.second) * (column - dest.second) ) );
 	}
 	
+	public static Stack <Pair <Integer, Integer>> path = new Stack <Pair <Integer, Integer>>();
+	
 	// To trace the path obtained
 	public static void tracePath(Cell cellDetails[][], Pair <Integer, Integer> dest) {
 		System.out.println("The path is : ");
 		int row = dest.first;
 		int column = dest.second;
 
-		Stack <Pair <Integer, Integer>> path = new Stack <Pair <Integer, Integer>>();
+		//Stack <Pair <Integer, Integer>> path = new Stack <Pair <Integer, Integer>>();
 		while ( !(cellDetails[row][column].parent_i == row
 					&& cellDetails[row][column].parent_j == column) ) {
 			path.push(new Pair <Integer, Integer>(row, column) );
@@ -54,11 +56,17 @@ public class ASearch {
 		return;
 	}
 	
+	// get the cell details
+	public static Stack < Pair <Integer, Integer>> getPath() {
+		/*Stack < Pair <Integer, Integer>> path = tracePath();*/
+		return path;
+	}
+	
 	//The A-Star Search Algorithm
 
 	public static void AStarSearch(boolean grid[][], Pair <Integer, Integer> src, Pair <Integer, Integer> dest) {
 		// Check if the source is reachable
-		if (isValid(src.first, src.second, grid.length, grid[0].length) == false) {
+		/*if (isValid(src.first, src.second, grid.length, grid[0].length) == false) {
 			System.out.println("Source is invalid");
 			return;
 		}
@@ -67,7 +75,7 @@ public class ASearch {
 		if (isValid(dest.first, dest.second, grid.length, grid[0].length) == false) {
 			System.out.println("Destination is invalid");
 			return;
-		}
+		}*/
 
 		if (grid[src.first][src.second] == false ||
 				grid[dest.first][dest.second] == false) {
@@ -77,6 +85,7 @@ public class ASearch {
 		
 		if (isDestination(src.first, src.second, dest) == true) {
 			System.out.println("We are already at the destination");
+			return;
 		}
 
 		boolean[][] closedList = new boolean[grid.length][grid[0].length];
