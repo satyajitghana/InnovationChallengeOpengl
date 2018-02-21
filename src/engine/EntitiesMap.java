@@ -66,6 +66,8 @@ public class EntitiesMap {
 		return cells;
 	}
 	
+	//AI FUNCTIONS
+	////////////////////////////////////////////////////////////////////////
 	public boolean validateCell(int x, int y) {
 		return (x>=0 && x<=rows) && (y>=0 && y<=cols);
 	}
@@ -73,6 +75,7 @@ public class EntitiesMap {
 	public boolean cellIsUnblocked(int x, int y) {
 		return map.get(coordToString(x, y)).isEmpty();
 	}
+	////////////////////////////////////////////////////////////////////////
 	
 	public static ArrayList<Component> getEntitiesInCell(Vector2f pos){
 		return map.get(getCellS(pos.x, pos.y));
