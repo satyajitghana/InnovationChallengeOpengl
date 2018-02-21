@@ -1,8 +1,2 @@
-/ai/
-/components/
-/data/
-/entity/
-/callback/
-/rooms/
 /engine/
-/images/
+/entity/
