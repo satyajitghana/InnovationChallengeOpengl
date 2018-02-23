@@ -3,15 +3,22 @@ package engine;
 import java.util.ArrayList;
 
 import components.Component;
+import components.MaterialComponent;
+import shaders.StaticShader;
 
 public class Game {
 
 	public static ArrayList<Component> updateComponents;
 	public static ArrayList<Component> renderComponents;
 	
-	public Game() {
+	private Renderer renderer;
+	private StaticShader shader;
+	
+	public Game(Renderer renderer, StaticShader shader) {
 		updateComponents = new ArrayList<Component>();
 		renderComponents = new ArrayList<Component>();
+		this.renderer = renderer;
+		this.shader = shader;
 	}
 	public void update() {
 		///System.out.println("number of components: "+(updateComponents.size()+renderComponents.size()));
@@ -34,7 +41,7 @@ public class Game {
 				continue;
 			}
 			
-			c.render();
+			renderer.render((MaterialComponent)c, shader);
 		}
 		
 	}

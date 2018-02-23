@@ -1,2 +1,7 @@
 /engine/
 /entity/
+/shaders/
+/toolbox/
+/components/
+/rooms/
+/callback/

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import components.Component;
+import engine.Loader;
 import engine.Main;
 import entity.Entity;
 
@@ -20,12 +21,15 @@ public class Room {
 	
 	public int enemyCount;
 	
-	public Room(int room_id, String path) {
+	private Loader loader;
+	
+	public Room(int room_id, String path, Loader loader) {
 		this.entities = new ArrayList<Entity>();
 		this.gates = new ArrayList<Entity>();
 		this.path = path;
 		this.enemyCount = 0;
 		this.room_id = room_id;
+		this.loader = loader;
 	}
 	
 	public void loadRoom() {
@@ -69,7 +73,9 @@ public class Room {
 	public void enableGates() {
 		this.gateEnabled = true;
 		for(Entity e: gates) {
-			e.material.sprite.loadTexture("/res/images/gateEnabled.png");
+			float sx = e.material.getSx();
+			float sy = e.material.getSy();
+			e.material.setMaterial(loader.loadToVAO(sx, sy, "gateEnabled"));
 		}
 	}
 	

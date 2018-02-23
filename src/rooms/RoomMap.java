@@ -7,14 +7,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import engine.Loader;
+
 public class RoomMap {
 	private static HashMap<Integer, String> roomMap;
 	public static ArrayList<Integer> visted;
 	public static Room currentRoom;
+	private static Loader loader;
 	
-	public RoomMap(String path) {
+	public RoomMap(String path, Loader l) {
 		roomMap = new HashMap<Integer, String>();
 		visted = new ArrayList<Integer>();
+		loader = l;
 		loadRoomMap(path);
 		visit(0, 0);
 	}
@@ -39,7 +43,7 @@ public class RoomMap {
 		if(currentRoom!=null && !visted.contains(currentRoomID)) {
 			visted.add(currentRoomID);
 		}
-		currentRoom = new Room(targetRoomID, roomMap.get(targetRoomID));
+		currentRoom = new Room(targetRoomID, roomMap.get(targetRoomID), loader);
 		currentRoom.loadRoom();
 	}
 

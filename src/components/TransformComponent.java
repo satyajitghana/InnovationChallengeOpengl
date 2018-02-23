@@ -1,52 +1,40 @@
 package components;
 
-import static org.lwjgl.opengl.GL11.glRotatef;
-import static org.lwjgl.opengl.GL11.glTranslatef;
 
-import org.joml.Vector2f;
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector2f;
 
 import engine.Game;
 import entity.Entity;
+import toolbox.Maths;
 public class TransformComponent extends Component{
 	
 	public Vector2f pos;
 	public float rot;
-	
+	public float scale;
 	public float speed;
 	
-	public TransformComponent(Entity attachedTo, Vector2f pos, float rot, float speed) {
+	public TransformComponent(Entity attachedTo, Vector2f pos, float rot, float scale, float speed) {
 		super(ComponentID.transform, attachedTo);
 		
 		this.pos = pos;
 		this.rot = rot;
+		this.scale = scale;
 		this.speed = speed;
 		
 		Game.updateComponents.add(this);
 	}
 	
 	public void move(float magX, float magY) {
-		translate(magX*speed, magY*speed);
-	}
-
-	public void glTranslate() {
-		glTranslatef(pos.x, pos.y, 0);
-	}
-	
-	public void glTranslate(float x, float y) {
-		glTranslatef(x, y, 0);
-		
-	}
-	public void glRotate() {
-		glRotatef(rot, 0,0,1); //z axis
-	}
-	
-	public void translate(float x, float y) {
-		this.pos.x += x;
-		this.pos.y += y;
+		this.pos.x += magX * speed;
+		this.pos.y += magY * speed;
 	}
 	
 	public void rotate(float rot) {
 		this.rot = rot;
-		
+	}
+	
+	public Matrix4f getTransformationMatrix() {
+		return Maths.createTransformationMatrix(pos, rot, scale);
 	}
 }

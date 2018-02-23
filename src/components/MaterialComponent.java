@@ -1,29 +1,36 @@
 package components;
-import static org.lwjgl.opengl.GL11.*;
 
 import engine.Game;
-import engine.Sprite;
+import engine.Material;
 import entity.Entity;
 
 public class MaterialComponent extends Component{
 
-	public Sprite sprite;
-	public MaterialComponent(Entity attachedTo, Sprite sprite) {
+	private Material material;
+	private float sx;
+	private float sy;
+	public MaterialComponent(Entity attachedTo, Material material, float sx, float sy) {
 		super(ComponentID.material, attachedTo);
-		
-		this.sprite = sprite;
-		
+		this.material = material;
+		this.sx = sx;
+		this.sy = sy;
 		Game.renderComponents.add(this);
 	}
 	
-	public void render() {
-		glPushMatrix();
-		{
-			attachedTo.transform.glTranslate();
-			attachedTo.transform.glRotate();
-			attachedTo.transform.glTranslate(-sprite.sx/2, -sprite.sy/2);
-			sprite.render();
-		}
-		glPopMatrix();
+	public Material getMaterial() {
+		return this.material;
 	}
+	
+	public void setMaterial(Material material) {
+		this.material = material;
+	}
+	
+	public float getSx() {
+		return this.sx;
+	}
+	
+	public float getSy() {
+		return this.sy;
+	}
+	
 }

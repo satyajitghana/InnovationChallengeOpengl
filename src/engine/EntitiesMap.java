@@ -51,8 +51,8 @@ public class EntitiesMap {
 		
 		float pos_x = c.getAttachedTo().transform.pos.x;
 		float pos_y = c.getAttachedTo().transform.pos.y;
-		float sx = c.getAttachedTo().material.sprite.sx;
-		float sy = c.getAttachedTo().material.sprite.sy;
+		float sx = c.getAttachedTo().material.getSx();
+		float sy = c.getAttachedTo().material.getSy();
 		
 		Vector2f topRight = getCellVec(pos_x+(sx/2), pos_y+(sy/2));
 		Vector2f bottomLeft = getCellVec(pos_x-(sx/2), pos_y-(sy/2));
