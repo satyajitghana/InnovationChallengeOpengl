@@ -9,6 +9,8 @@ uniform mat4 transform;
 uniform mat4 projection;
 
 void main(void){
-	gl_Position = projection * transform * vec4(position, 1.0);
+
+	vec4 worldPos = transform * vec4(position, 1.0);
+	gl_Position = projection * worldPos;
 	pass_textureCoords = textureCoords;
 }

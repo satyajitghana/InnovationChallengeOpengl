@@ -9,7 +9,9 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector4f;
 
 public abstract class ShaderProgram {
 	
@@ -30,9 +32,12 @@ public abstract class ShaderProgram {
 		GL20.glLinkProgram(program);
 		GL20.glValidateProgram(program);
 		getAllUniformLocations();
+		connectTextureUnits();
 	}
 	
 	protected abstract void getAllUniformLocations();
+	
+	protected abstract void connectTextureUnits();
 	
 	protected int getUniformLocation(String name) {
 		return GL20.glGetUniformLocation(program, name);
@@ -57,6 +62,7 @@ public abstract class ShaderProgram {
 	
 	public abstract void bindAttributes();
 	
+	
 	protected void bindAttribute(int attributeNumber, String variable) {
 		GL20.glBindAttribLocation(program, attributeNumber, variable);
 	}
@@ -65,12 +71,24 @@ public abstract class ShaderProgram {
 		GL20.glUniform1f(location, value);
 	}
 	
-	protected void loadVector(int location, Vector3f vector) {
+	protected void loadVector2f(int location, Vector2f vector) {
+		GL20.glUniform2f(location, vector.x, vector.y);
+	}
+	
+	protected void loadVector3f(int location, Vector3f vector) {
 		GL20.glUniform3f(location, vector.x, vector.y, vector.z);
+	}
+	
+	protected void loadVector4f(int location, Vector4f vector) {
+		GL20.glUniform4f(location, vector.x, vector.y, vector.z, vector.w);
 	}
 	
 	protected void loadBoolean(int location, boolean value) {
 		GL20.glUniform1f(location, (value) ? 1 : 0);
+	}
+	
+	protected void loadInt(int location, int value) {
+		GL20.glUniform1i(location, value);
 	}
 	
 	protected void loadMatrix(int location, Matrix4f matrix) {

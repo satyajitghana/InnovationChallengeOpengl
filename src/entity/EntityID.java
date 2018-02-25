@@ -5,5 +5,6 @@ public enum EntityID {
 	bullet, 
 	wall,
 	enemy, 
-	gate;
+	gate, 
+	screenQuad;
 }

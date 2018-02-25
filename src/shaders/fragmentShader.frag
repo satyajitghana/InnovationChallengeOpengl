@@ -3,9 +3,24 @@
 in vec2 pass_textureCoords;
 
 uniform sampler2D textureSampler;
+uniform vec2 lightPos;
+uniform vec3 lightColor;
+uniform float radius;
+uniform vec3 lightIntensity;
 
-out vec4 out_color;
+out vec4 frag;
 
-void main(void){
-	out_color = texture(textureSampler, pass_textureCoords);
+void main() {
+	
+	vec2 toLight = gl_FragCoord.xy - lightPos;
+	float d = length(toLight);
+	
+	float att = clamp(1.0 - d*d/(radius*radius), 0.0, 1.0);
+	att *= att;	
+	
+	vec3 intensity = lightIntensity * att;
+	
+	frag = texture(textureSampler, pass_textureCoords) * vec4(intensity, 1.0);
+	
 }
+

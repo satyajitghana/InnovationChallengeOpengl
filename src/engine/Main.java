@@ -4,12 +4,12 @@ import static org.lwjgl.opengl.GL11.GL_BLEND;
 import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.glBlendFunc;
 import static org.lwjgl.opengl.GL11.glClearColor;
 import static org.lwjgl.opengl.GL11.glDisable;
 import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glViewport;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
@@ -21,8 +21,8 @@ import rooms.RoomMap;
 import shaders.StaticShader;
 public class Main {
 	
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
+	public static final int WIDTH = 1280;
+	public static final int HEIGHT = 720;
 	
 	private static Game game;
 	private static Input keyIn;
@@ -86,7 +86,6 @@ public class Main {
 		emap = new EntitiesMap();
 		new RoomMap("res/data/roomMap.data", loader);
 		
-		
 		creator.getPlayer().transform.pos.x = 400;
 		creator.getPlayer().transform.pos.y = 300;
 		
@@ -128,7 +127,6 @@ public class Main {
 	
 	private static void initGL() {
 		glViewport(0, 0, WIDTH, HEIGHT);
-		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glDisable(GL_DEPTH_TEST);

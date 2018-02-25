@@ -27,6 +27,7 @@ public class Renderer {
 			GL20.glEnableVertexAttribArray(0);
 			GL20.glEnableVertexAttribArray(1);
 			shader.loadTransformationMatrix(material.getAttachedTo().transform.getTransformationMatrix());
+			
 			GL13.glActiveTexture(GL13.GL_TEXTURE0);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, material.getMaterial().getTextureID());
 			{

@@ -3,7 +3,7 @@ package engine;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.joml.Vector2f;
+import org.lwjgl.util.vector.Vector2f;
 
 import components.Component;
 import components.ComponentID;

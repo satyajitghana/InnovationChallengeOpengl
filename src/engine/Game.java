@@ -34,6 +34,7 @@ public class Game {
 	}
 	
 	public void render() {
+		shader.loadLight(Main.creator.getLight());
 		for(int i=0;i<renderComponents.size();i++) {
 			Component c = renderComponents.get(i);
 			if(c.toRemove) {

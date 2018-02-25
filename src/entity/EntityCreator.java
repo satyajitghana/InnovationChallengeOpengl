@@ -2,6 +2,7 @@ package entity;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 
 import components.CollisionComponent;
 import components.HealthComponent;
@@ -11,29 +12,31 @@ import components.TransformComponent;
 import components.WindowExitTriggerComponent;
 import engine.Loader;
 import engine.Main;
-import engine.Material;
 
 public class EntityCreator {
 	public static final int player_size = 80;
 	public static final float player_speed = 4;
 	
 	private Entity player;
+	private Light light;
 	private Loader loader;
 	
 	public EntityCreator(Loader loader) {
 		this.player = new Entity(EntityID.player);
 		this.loader = loader;
+		
 	}
 	
 	public Entity createPlayer(float x, float y, float rot) {
-		player.addComponent(new TransformComponent(player, new Vector2f(x, y), rot, 1, player_speed));
-		Material mat = loader.loadToVAO(player_size, player_size, "player");
-		player.addComponent(new MaterialComponent(player, mat, player_size, player_size));
+		Vector2f playerPos = new Vector2f(x, y);
+		player.addComponent(new TransformComponent(player, playerPos, rot, 1, player_speed));
+		player.addComponent(new MaterialComponent(player, loader.loadToVAO(player_size, player_size, "player"), player_size, player_size));
 		player.addComponent(new HealthComponent(player, 100));
 		player.addComponent(new MiscComponent(player, Main.c.followRotation(), player, "Mouse"));
 		player.addComponent(new WindowExitTriggerComponent(player, 0, Main.c.inWindow(), player));
 		player.addComponent(new CollisionComponent(player, player_size/2, player_size/2, Main.c.playerCollision(), player));
 		
+		this.light = new Light(playerPos, new Vector3f(1,0.8f,0.6f), new Vector3f(1,1,1), 150f);
 		return player;
 		
 	}
@@ -89,5 +92,9 @@ public class EntityCreator {
 	
 	public Entity getPlayer() {
 		return this.player;
+	}
+	
+	public Light getLight() {
+		return light;
 	}
 }
