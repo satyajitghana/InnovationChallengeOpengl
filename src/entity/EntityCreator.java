@@ -63,7 +63,7 @@ public class EntityCreator {
 		enemy.addComponent(new TransformComponent(enemy, new Vector2f(x, y), rot, 1, 4));
 		enemy.addComponent(new MaterialComponent(enemy, loader.loadToVAO(sx, sy, "enemy"), sx, sy));
 		enemy.addComponent(new WindowExitTriggerComponent(enemy, 0, Main.c.inWindow(), enemy));
-		enemy.addComponent(new CollisionComponent(enemy, sx, sy, Main.c.enemyCollision(), enemy));
+		enemy.addComponent(new CollisionComponent(enemy, sx/2, sy/2, Main.c.enemyCollision(), enemy));
 		enemy.addComponent(new HealthComponent(enemy, 100));
 		enemy.addComponent(new MiscComponent(enemy, Main.c.followRotation(), enemy, player));
 		

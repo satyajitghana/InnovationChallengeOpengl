@@ -16,9 +16,9 @@ void main() {
 	float d = length(toLight);
 	
 	float att = clamp(1.0 - d*d/(radius*radius), 0.0, 1.0);
-	att *= att;	
+	att *= att;
 	
-	vec3 intensity = lightIntensity * att;
+	vec3 intensity = clamp(lightIntensity * att, 0.0, 1.0);
 	
 	frag = texture(textureSampler, pass_textureCoords) * vec4(intensity, 1.0);
 	

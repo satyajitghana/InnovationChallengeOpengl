@@ -7,6 +7,7 @@ import entity.Entity;
 import ai.Pair;
 import engine.Game;
 
+@SuppressWarnings("unused")
 public class AIComponent extends Component{
 	
 	private ASearch pathfinder;
