@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Stack;
 import java.util.TreeSet;
+import engine.*;
 
 public class ASearch {
 	// to check if the current cell is valid cell in the grid
@@ -58,6 +59,7 @@ public class ASearch {
 	}
 
 	// get the cell details
+	// takes the source and destination as a Pair, and returns a stack that contains the path from source to destination
 	public static Stack < Pair <Integer, Integer>> getPath(Pair <Integer, Integer> src, Pair <Integer, Integer> dest) {
 		/*Stack < Pair <Integer, Integer>> path = tracePath();*/
 		AStarSearch(src, dest);
