@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Stack;
 import java.util.TreeSet;
+
 import engine.*;
 
 public class ASearch {
@@ -81,12 +82,12 @@ public class ASearch {
 			return;
 		}*/
 
-		if (validateCell(src.first, src.second) == false) {
+		if (EntitiesMap.validateCell(src.first, src.second) == false) {
 			System.out.println("Source is invalid");
 			return;
 		}
 
-		if (validateCell(dest.first, dest.second) == false) {
+		if (EntitiesMap.validateCell(dest.first, dest.second) == false) {
 			System.out.println("Destination is invalid");
 			return;
 		}
@@ -102,8 +103,8 @@ public class ASearch {
 			return;
 		}
 
-		if (cellIsUnblocked(src.first, src.second) == false ||
-			cellIsUnblocked(dest.first, dest.second) == false) {
+		if (EntitiesMap.cellIsUnblocked(src.first, src.second) == false ||
+			EntitiesMap.cellIsUnblocked(dest.first, dest.second) == false) {
 			System.out.println("Source of the Destination is blocked");
 			return;
 		}
@@ -275,7 +276,7 @@ public class ASearch {
 		int j = currSuccessor.newCell.parent_j;
 		Cell[][] cellDetails = currSuccessor.cellDetails;
 		//if (isValid(i, j, grid.length, grid[0].length)) {
-		if (validateCell(i, j) == true) {
+		if (EntitiesMap.validateCell(i, j) == true) {
 			if (isDestination(i, j, dest)) {
 				cellDetails[i][j].parent_i = parent_i;
 				cellDetails[i][j].parent_j = parent_j;
@@ -285,7 +286,7 @@ public class ASearch {
 			}
 
 			//else if (closedList[i][j] == false && grid[i][j] == true) {
-			else if(closedList[i][j] == false && cellIsUnblocked(i, j) == true) {
+			else if(closedList[i][j] == false && EntitiesMap.cellIsUnblocked(i, j) == true) {
 				currSuccessor.newCell.g = cellDetails[parent_i][parent_j].g;
 				if (isDiagonal) currSuccessor.newCell.g += 1.414;
 				else currSuccessor.newCell.g += 1.0;

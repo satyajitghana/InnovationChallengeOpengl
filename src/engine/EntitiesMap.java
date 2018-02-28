@@ -68,11 +68,11 @@ public class EntitiesMap {
 	
 	//AI FUNCTIONS
 	////////////////////////////////////////////////////////////////////////
-	public boolean validateCell(int x, int y) {
+	public static boolean validateCell(int x, int y) {
 		return (x>=0 && x<=rows) && (y>=0 && y<=cols);
 	}
 	
-	public boolean cellIsUnblocked(int x, int y) {
+	public static boolean cellIsUnblocked(int x, int y) {
 		return map.get(coordToString(x, y)).isEmpty();
 	}
 	////////////////////////////////////////////////////////////////////////
