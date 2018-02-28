@@ -12,9 +12,9 @@ import java.util.TreeSet;
 public class ASearch {
 	// to check if the current cell is valid cell in the grid
 	// return boolean false if it is not, and true if it is.
-	public static boolean isValid(int row, int column, int RMAX, int CMAX) {
+	/*public static boolean isValid(int row, int column, int RMAX, int CMAX) {
 		return (row >= 0) && (row < RMAX) && (column >= 0) && (column < CMAX);
-	}
+	}*/
 	
 	// to check if the destination has been reached or not
 	// return a boolean true or false
@@ -77,14 +77,30 @@ public class ASearch {
 			return;
 		}*/
 
-		if (grid[src.first][src.second] == false ||
+		if (validateCell(src.first, src.second) == false) {
+			System.out.println("Source is invalid");
+			return;
+		}
+
+		if (validateCell(dest.first, dest.second) == false) {
+			System.out.println("Destination is invalid");
+			return;
+		}
+
+		/*if (grid[src.first][src.second] == false ||
 				grid[dest.first][dest.second] == false) {
 			System.out.println("Source or the Destination is blocked");
 			return;
-		}
+		}*/
 		
 		if (isDestination(src.first, src.second, dest) == true) {
 			System.out.println("We are already at the destination");
+			return;
+		}
+
+		if (cellIsUnblocked(src.first, src.second) == false ||
+			cellIsUnblocked(dest.first, dest.second) == false) {
+			System.out.println("Source of the Destination is blocked");
 			return;
 		}
 
@@ -254,7 +270,8 @@ public class ASearch {
 		int i = currSuccessor.newCell.parent_i;
 		int j = currSuccessor.newCell.parent_j;
 		Cell[][] cellDetails = currSuccessor.cellDetails;
-		if (isValid(i, j, grid.length, grid[0].length)) {
+		//if (isValid(i, j, grid.length, grid[0].length)) {
+		if (validateCell(i, j) == true) {
 			if (isDestination(i, j, dest)) {
 				cellDetails[i][j].parent_i = parent_i;
 				cellDetails[i][j].parent_j = parent_j;
@@ -263,7 +280,8 @@ public class ASearch {
 				return currSuccessor;
 			}
 
-			else if (closedList[i][j] == false && grid[i][j] == true) {
+			//else if (closedList[i][j] == false && grid[i][j] == true) {
+			else if(closedList[i][j] == false && cellIsUnblocked(i, j) == true) {
 				currSuccessor.newCell.g = cellDetails[parent_i][parent_j].g;
 				if (isDiagonal) currSuccessor.newCell.g += 1.414;
 				else currSuccessor.newCell.g += 1.0;
