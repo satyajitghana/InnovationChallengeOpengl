@@ -33,6 +33,7 @@ public class ASearch {
 	
 	// To trace the path obtained
 	public static void tracePath(Cell cellDetails[][], Pair <Integer, Integer> dest) {
+	//public static Stack <Pair <Integer, Integer>> tracePath(Cell cellDetails[][], Pair <Integer, Integer> dest) {
 		System.out.println("The path is : ");
 		int row = dest.first;
 		int column = dest.second;
