@@ -1,11 +1,11 @@
+/data/
+/images/
+/lib/
+/shaders/
 /ai/
 /callback/
 /components/
-/data/
 /engine/
 /entity/
-/images/
-/lib/
 /rooms/
-/shaders/
 /toolbox/

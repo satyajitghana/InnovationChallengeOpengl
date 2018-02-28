@@ -77,7 +77,7 @@ public class EntitiesMap {
 		return map.get(coordToString(x, y)).isEmpty();
 	}
 	
-	public Pair<Integer, Integer> getRowsAndCols(){
+	public static Pair<Integer, Integer> getRowsAndCols(){
 		return new Pair<Integer, Integer>(rows, cols);
 	}
 	////////////////////////////////////////////////////////////////////////
