@@ -27,11 +27,13 @@ public class AIComponent extends Component{
 	@Override
 	public void update() {
 		Vector2f sourceVec = EntitiesMap.getCellVec(attachedTo.transform.pos.x, attachedTo.transform.pos.y);
-		Vector2f destVec = EntitiesMap.getCellVec(target.transform.pos.x, target.transform.pos.x);
+		Vector2f destVec = EntitiesMap.getCellVec(target.transform.pos.x, target.transform.pos.y);
 	
 		path = ASearch.getPath(new Pair<Integer, Integer>((int)sourceVec.x, (int)sourceVec.y), new Pair<Integer, Integer>((int)destVec.x, (int)destVec.y));
 		
-		System.out.println(path+"\n");
+		//System.out.println("target cell x: "+destVec.x + " target y: "+destVec.y);
+		//System.out.println("source cell x: "+sourceVec.x+" source cell y: "+sourceVec.y);
+		//System.out.println(path+"\n");
 		
 		/*if(path.isEmpty()){
 	 		//start shooting

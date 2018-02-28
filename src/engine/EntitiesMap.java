@@ -20,8 +20,9 @@ public class EntitiesMap {
 	
 	public EntitiesMap() {
 		map = new HashMap<String, ArrayList<Component>>();
-		rows = Main.HEIGHT/CELL_SIZE;
-		cols = Main.WIDTH/CELL_SIZE;
+		rows = (Main.HEIGHT/CELL_SIZE) - 1;
+		cols = (Main.WIDTH/CELL_SIZE) - 1;
+		System.out.println("rows: "+rows+" cols: "+cols);
 		update();
 	}
 	
@@ -70,15 +71,20 @@ public class EntitiesMap {
 	//AI FUNCTIONS
 	////////////////////////////////////////////////////////////////////////
 	public static boolean validateCell(int x, int y) {
-		return (x>=0 && x<=rows) && (y>=0 && y<=cols);
+		boolean value = (x>=1 && x<=cols) && (y>=1 && y<=rows);
+		System.out.println("x: "+x+" cols: "+cols+"\ny: "+y+" rows: "+rows+"\n");
+		return value;
 	}
 	
 	public static boolean cellIsUnblocked(int x, int y) {
-		return map.get(coordToString(x, y)).isEmpty();
+		System.out.println("x: "+x+" y: "+y);
+		if(validateCell(x, y))
+			return map.get(coordToString(x, y)).isEmpty();
+		return false;
 	}
 	
 	public static Pair<Integer, Integer> getRowsAndCols(){
-		return new Pair<Integer, Integer>(rows, cols);
+		return new Pair<Integer, Integer>(rows+2, cols+2);
 	}
 	////////////////////////////////////////////////////////////////////////
 	
