@@ -90,7 +90,7 @@ public class EntitiesMap {
 		return Integer.toString((int)(x/CELL_SIZE))+","+Integer.toString((int)(y/CELL_SIZE));
 	}
 	
-	public Vector2f getCellVec(float x, float y) {
+	public static Vector2f getCellVec(float x, float y) {
 		return new Vector2f((int)(x/CELL_SIZE), (int)(y/CELL_SIZE));
 	}
 	

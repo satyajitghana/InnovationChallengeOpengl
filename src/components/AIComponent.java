@@ -2,22 +2,22 @@ package components;
 
 import java.util.Stack;
 
-import ai.ASearch;
-import entity.Entity;
-import ai.Pair;
-import engine.Game;
+import org.lwjgl.util.vector.Vector2f;
 
-@SuppressWarnings("unused")
+import ai.ASearch;
+import ai.Pair;
+import engine.EntitiesMap;
+import engine.Game;
+import entity.Entity;
+
 public class AIComponent extends Component{
 	
-	private ASearch pathfinder;
 	private Stack <Pair <Integer, Integer>> path;
 	private Entity target;
 	
-	public AIComponent(Entity attachedTo, Entity target, ASearch pathfinder) {
+	public AIComponent(Entity attachedTo, Entity target) {
 		super(ComponentID.AI, attachedTo);
 		this.target = target;
-		this.pathfinder = pathfinder;
 		this.path = new Stack<Pair <Integer, Integer>>();
 		
 		Game.updateComponents.add(this);
@@ -26,15 +26,20 @@ public class AIComponent extends Component{
 	
 	@Override
 	public void update() {
-		/*
-		 path = pathfinder.getPath(int sourceX, int sourceY, int destX, int destY);
-		 if(path.isEmpty()){
-		 	//start shooting
-		 }else{
-		 	Pair coords<Integer, Integer> = path.pop();
+		Vector2f sourceVec = EntitiesMap.getCellVec(attachedTo.transform.pos.x, attachedTo.transform.pos.y);
+		Vector2f destVec = EntitiesMap.getCellVec(target.transform.pos.x, target.transform.pos.x);
+	
+		path = ASearch.getPath(new Pair<Integer, Integer>((int)sourceVec.x, (int)sourceVec.y), new Pair<Integer, Integer>((int)destVec.x, (int)destVec.y));
+		
+		System.out.println(path+"\n");
+		
+		/*if(path.isEmpty()){
+	 		//start shooting
+		}else{
+	 		Pair coords<Integer, Integer> = path.pop();
 		 	Vector2f dir = getDir(coords); //gets direction from current position to popped value
 		 	this.attachedTo.transform.move(dir.x, dir.y);
-		 }
-		 */
+		}
+		*/
 	}
 }

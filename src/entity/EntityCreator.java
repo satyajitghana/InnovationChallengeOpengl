@@ -4,6 +4,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
+import components.AIComponent;
 import components.CollisionComponent;
 import components.HealthComponent;
 import components.MaterialComponent;
@@ -66,6 +67,7 @@ public class EntityCreator {
 		enemy.addComponent(new CollisionComponent(enemy, sx/2, sy/2, Main.c.enemyCollision(), enemy));
 		enemy.addComponent(new HealthComponent(enemy, 100));
 		enemy.addComponent(new MiscComponent(enemy, Main.c.followRotation(), enemy, player));
+		enemy.addComponent(new AIComponent(enemy, player));
 		
 		return enemy;
 		
