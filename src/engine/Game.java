@@ -41,10 +41,8 @@ public class Game {
 				renderComponents.remove(c);
 				continue;
 			}
-			
-			renderer.render((MaterialComponent)c, shader);
+			renderer.render((MaterialComponent) c, shader);
 		}
 		
 	}
-	
 }

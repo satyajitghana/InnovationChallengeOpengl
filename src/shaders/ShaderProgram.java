@@ -22,12 +22,18 @@ public abstract class ShaderProgram {
 	private static FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
 	
 	public ShaderProgram(String vertexShader, String fragmentShader) {
-		this.vs = loadShader(vertexShader, GL20.GL_VERTEX_SHADER);
-		this.fs = loadShader(fragmentShader, GL20.GL_FRAGMENT_SHADER);
 		
 		this.program = GL20.glCreateProgram();
-		GL20.glAttachShader(program, vs);
-		GL20.glAttachShader(program, fs);
+
+		if(vertexShader != null) {
+			this.vs = loadShader(vertexShader, GL20.GL_VERTEX_SHADER);
+			GL20.glAttachShader(program, vs);
+		}
+		if(fragmentShader != null) {
+			this.fs = loadShader(fragmentShader, GL20.GL_FRAGMENT_SHADER);
+			GL20.glAttachShader(program, fs);
+		}
+		
 		bindAttributes();
 		GL20.glLinkProgram(program);
 		GL20.glValidateProgram(program);

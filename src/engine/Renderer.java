@@ -22,11 +22,11 @@ public class Renderer {
 	}
 	
 	public void render(MaterialComponent material, StaticShader shader) {
+		shader.loadTransformationMatrix(material.getAttachedTo().transform.getTransformationMatrix());
 		GL30.glBindVertexArray(material.getMaterial().getVaoID());
 		{
 			GL20.glEnableVertexAttribArray(0);
 			GL20.glEnableVertexAttribArray(1);
-			shader.loadTransformationMatrix(material.getAttachedTo().transform.getTransformationMatrix());
 			
 			GL13.glActiveTexture(GL13.GL_TEXTURE0);
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, material.getMaterial().getTextureID());
@@ -38,7 +38,4 @@ public class Renderer {
 		}
 		GL30.glBindVertexArray(0);
 	}
-	
-	
-	
 }

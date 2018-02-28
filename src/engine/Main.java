@@ -103,11 +103,11 @@ public class Main {
 	
 	private static void render() {
 		renderer.prepare();
+		
 		shader.start();
-		
 		game.render();
-		
 		shader.stop();
+				
 		Display.update();
 		Display.sync(60);
 	}

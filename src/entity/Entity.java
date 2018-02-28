@@ -12,6 +12,7 @@ import components.TransformComponent;
 public class Entity {
 	
 	private ArrayList<Component> components;
+	
 	public EntityID id;
 	
 	
@@ -48,7 +49,7 @@ public class Entity {
 			this.transform = null;
 		else if(c.getId() == ComponentID.health)
 			this.health = null;
-		else if(c.getId() == ComponentID.material)
+		else if(c.getId() == ComponentID.material) 
 			this.material = null;
 		else if(c.getId() == ComponentID.collision)
 			this.collisionComponent = null;

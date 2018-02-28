@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.lwjgl.util.vector.Vector2f;
 
+import ai.Pair;
 import components.Component;
 import components.ComponentID;
 
@@ -74,6 +75,10 @@ public class EntitiesMap {
 	
 	public static boolean cellIsUnblocked(int x, int y) {
 		return map.get(coordToString(x, y)).isEmpty();
+	}
+	
+	public Pair<Integer, Integer> getRowsAndCols(){
+		return new Pair<Integer, Integer>(rows, cols);
 	}
 	////////////////////////////////////////////////////////////////////////
 	

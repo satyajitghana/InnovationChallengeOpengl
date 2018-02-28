@@ -5,7 +5,7 @@ public class Pair <T extends Comparable <? super T>, E extends Comparable < ? su
 	public T first;
 	public E second;
 
-	Pair(T first, E second) {
+	public Pair(T first, E second) {
 		this.first = first;
 		this.second = second;
 	}
