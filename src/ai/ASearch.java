@@ -4,8 +4,6 @@ package ai;
  * A* Algorithm Implementation in JAVA
  */
 
-import java.util.Arrays;
-import java.util.Scanner;
 import java.util.Stack;
 import java.util.TreeSet;
 
