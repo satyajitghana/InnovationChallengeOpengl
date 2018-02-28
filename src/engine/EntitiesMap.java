@@ -15,13 +15,13 @@ public class EntitiesMap {
 	
 	private static HashMap<String, ArrayList<Component>> map;
 	
-	private int rows;
-	private int cols;
+	private static int rows;
+	private static int cols;
 	
 	public EntitiesMap() {
 		map = new HashMap<String, ArrayList<Component>>();
-		this.rows = Main.HEIGHT/CELL_SIZE;
-		this.cols = Main.WIDTH/CELL_SIZE;
+		rows = Main.HEIGHT/CELL_SIZE;
+		cols = Main.WIDTH/CELL_SIZE;
 		update();
 	}
 	
@@ -94,14 +94,14 @@ public class EntitiesMap {
 		return new Vector2f((int)(x/CELL_SIZE), (int)(y/CELL_SIZE));
 	}
 	
-	public String coordToString(float x, float y) {
+	public static String coordToString(float x, float y) {
 		return Integer.toString((int) x)+","+Integer.toString((int) y);
 	}
 	
 	private void initMap() {
 		//clears the hashMap 
-		for(int i=0;i<=this.rows;i++) {
-			for(int j=0;j<=this.cols;j++) {
+		for(int i=0;i<=rows;i++) {
+			for(int j=0;j<=cols;j++) {
 				String s = Integer.toString(i)+","+Integer.toString(j);
 				map.put(s, new ArrayList<Component>());
 			}

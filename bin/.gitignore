@@ -1,14 +1,11 @@
 /ai/
 /callback/
 /components/
+/data/
 /engine/
 /entity/
+/images/
 /lib/
 /rooms/
+/shaders/
 /toolbox/
-<<<<<<< Updated upstream
-=======
-/components/
-/lib/
-/ai/
->>>>>>> Stashed changes
