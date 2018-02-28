@@ -38,6 +38,7 @@ public class ASearch {
 		int column = dest.second;
 
 		//Stack <Pair <Integer, Integer>> path = new Stack <Pair <Integer, Integer>>();
+		path = new Stack <Pair <Integer, Integer>>();
 		while ( !(cellDetails[row][column].parent_i == row
 					&& cellDetails[row][column].parent_j == column) ) {
 			path.push(new Pair <Integer, Integer>(row, column) );
@@ -49,16 +50,17 @@ public class ASearch {
 		path.push(new Pair <Integer, Integer>(row, column));
 
 		//Print Utility, path contains the path to be followed
-		while ( !path.empty() ) {
+		/*while ( !path.empty() ) {
 			Pair <Integer, Integer> p = path.pop();
 			System.out.print("-> (" + p.first + "," + p.second + ") ");
-		}
+		}*/
 		return;
 	}
-	
+
 	// get the cell details
-	public static Stack < Pair <Integer, Integer>> getPath() {
+	public static Stack < Pair <Integer, Integer>> getPath(Pair <Integer, Integer> src, Pair <Integer, Integer> dest) {
 		/*Stack < Pair <Integer, Integer>> path = tracePath();*/
+		AStarSearch(src, dest);
 		return path;
 	}
 	
@@ -298,7 +300,7 @@ public class ASearch {
 		}
 		return currSuccessor;
 	}
-
+/*
 	public static void main(String [] args) {
 		@SuppressWarnings("resource")
 		Scanner input = new Scanner(System.in);
@@ -323,5 +325,5 @@ public class ASearch {
 		Pair <Integer, Integer> dest = new Pair <Integer, Integer>(dest_i, dest_j);
 		
 		AStarSearch(grid, src, dest);
-	}
+	}*/
 }
