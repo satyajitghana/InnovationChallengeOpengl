@@ -106,14 +106,14 @@ public class ASearch {
 
 		if (EntitiesMap.cellIsUnblocked(src.first, src.second) == false ||
 			EntitiesMap.cellIsUnblocked(dest.first, dest.second) == false) {
-			System.out.println("Source of the Destination is blocked");
+			System.out.println("Source or the Destination is blocked");
 			return;
 		}
 
 		/*boolean[][] closedList = new boolean[grid.length][grid[0].length];
 		Cell[][] cellDetails = new Cell[grid.length][grid[0].length];*/
-		boolean[][] closedList = new boolean[size.first][size.second];
-		Cell[][] cellDetails = new Cell[size.first][size.first];
+		boolean[][] closedList = new boolean[size.second][size.first];
+		Cell[][] cellDetails = new Cell[size.second][size.first];
 		int i, j;
 		for (i = 0 ; i < cellDetails.length ; i++) {
 			for (j = 0 ; j < cellDetails[0].length ; j++) {
