@@ -10,6 +10,7 @@ import shaders.StaticShader;
 import toolbox.Maths;
 
 public class Renderer {	
+	
 	public Renderer(StaticShader shader) {
 		shader.start();
 		shader.loadProjectionMatrix(Maths.createProjectionMatrix());

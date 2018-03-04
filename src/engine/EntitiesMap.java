@@ -22,7 +22,7 @@ public class EntitiesMap {
 		map = new HashMap<String, ArrayList<Component>>();
 		rows = (Main.HEIGHT/CELL_SIZE) - 1;
 		cols = (Main.WIDTH/CELL_SIZE) - 1;
-		System.out.println("rows: "+rows+" cols: "+cols);
+//		System.out.println("rows: "+rows+" cols: "+cols);
 		update();
 	}
 	
@@ -71,15 +71,22 @@ public class EntitiesMap {
 	//AI FUNCTIONS
 	////////////////////////////////////////////////////////////////////////
 	public static boolean validateCell(int x, int y) {
-		boolean value = (x>=1 && x<=cols) && (y>=1 && y<=rows);
-		System.out.println("x: "+x+" cols: "+cols+"\ny: "+y+" rows: "+rows+"\n");
+		boolean value = (x>=1 && x<=rows) && (y>=1 && y<=cols);
+//		System.out.println("x: "+x+" rows: "+rows+"\ny: "+y+" cols: "+cols+"\n");
 		return value;
 	}
 	
 	public static boolean cellIsUnblocked(int x, int y) {
-		System.out.println("x: "+x+" y: "+y);
-		if(validateCell(x, y))
-			return map.get(coordToString(x, y)).isEmpty();
+//		System.out.println("\'"+coordToString(x, y)+"\'");
+//		System.out.println("x: "+x+" y: "+y);
+		
+		if(validateCell(x, y)) {
+			try {
+				return map.get(coordToString(x, y)).isEmpty();
+			}catch(NullPointerException e) {
+				return false;
+			}
+		}
 		return false;
 	}
 	
@@ -108,7 +115,7 @@ public class EntitiesMap {
 		//clears the hashMap 
 		for(int i=0;i<=rows;i++) {
 			for(int j=0;j<=cols;j++) {
-				String s = Integer.toString(i)+","+Integer.toString(j);
+				String s = coordToString(i, j);
 				map.put(s, new ArrayList<Component>());
 			}
 		}

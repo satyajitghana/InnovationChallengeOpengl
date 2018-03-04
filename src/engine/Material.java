@@ -11,8 +11,12 @@ public class Material {
 		this.vertex_count = vertex_count;
 		this.texID = texID;
 	}
-	
-	
+		
+	public Material(int vao_id, int vertex_count) {
+		this.vao_id = vao_id;
+		this.vertex_count = vertex_count;
+	}
+
 	public int getVaoID() {
 		return this.vao_id;
 	}

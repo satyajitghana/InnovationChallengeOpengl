@@ -10,12 +10,12 @@ import engine.EntitiesMap;
 import engine.Game;
 import entity.Entity;
 
-public class AIComponent extends Component{
+public class PathfinderComponent extends Component{
 	
 	private Stack <Pair <Integer, Integer>> path;
 	private Entity target;
 	
-	public AIComponent(Entity attachedTo, Entity target) {
+	public PathfinderComponent(Entity attachedTo, Entity target) {
 		super(ComponentID.AI, attachedTo);
 		this.target = target;
 		this.path = new Stack<Pair <Integer, Integer>>();

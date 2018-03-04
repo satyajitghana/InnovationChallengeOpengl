@@ -4,20 +4,23 @@ import java.util.ArrayList;
 
 import components.Component;
 import components.MaterialComponent;
+import gui.GUI;
+import gui.GUIRenderer;
 import shaders.StaticShader;
 
 public class Game {
 
-	public static ArrayList<Component> updateComponents;
-	public static ArrayList<Component> renderComponents;
+	public static ArrayList<Component> updateComponents = new ArrayList<Component>();
+	public static ArrayList<Component> renderComponents = new ArrayList<Component>();
+	public static ArrayList<GUI> guis = new ArrayList<GUI>();
 	
 	private Renderer renderer;
+	private GUIRenderer guiRenderer;
 	private StaticShader shader;
 	
-	public Game(Renderer renderer, StaticShader shader) {
-		updateComponents = new ArrayList<Component>();
-		renderComponents = new ArrayList<Component>();
+	public Game(Renderer renderer, GUIRenderer guiRenderer, StaticShader shader) {
 		this.renderer = renderer;
+		this.guiRenderer = guiRenderer;
 		this.shader = shader;
 	}
 	public void update() {
@@ -33,7 +36,8 @@ public class Game {
 		}
 	}
 	
-	public void render() {
+	public void renderEntities() {
+		shader.start();
 		shader.loadLight(Main.creator.getLight());
 		for(int i=0;i<renderComponents.size();i++) {
 			Component c = renderComponents.get(i);
@@ -43,6 +47,10 @@ public class Game {
 			}
 			renderer.render((MaterialComponent) c, shader);
 		}
-		
+		shader.stop();
+	}
+	
+	public void renderGUIs() {
+		guiRenderer.render(guis);
 	}
 }

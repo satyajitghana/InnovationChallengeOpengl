@@ -25,6 +25,16 @@ public class Maths {
 		return matrix;
 	}
 	
+	public static Matrix4f createTransformationMatrix(Vector2f translation, Vector2f scale) {
+		Matrix4f matrix = new Matrix4f();
+		
+		matrix.setIdentity();
+		Matrix4f.translate(translation, matrix, matrix);
+		Matrix4f.scale(new Vector3f(scale.x, scale.y, 1.0f), matrix, matrix);
+		
+		return matrix;
+	}
+	
 	public static Matrix4f createProjectionMatrix() {
 		
 		Matrix4f projectionMatrix = new Matrix4f();
@@ -39,6 +49,32 @@ public class Maths {
 		projectionMatrix.m32 = -((FAR_PLANE + NEAR_PLANE)/(FAR_PLANE - NEAR_PLANE));
 		
 		return projectionMatrix;
+	}
+	
+	public static Vector3f hslToRgb(float h, float s, float l) {
+		Vector3f rgb = new Vector3f();
+		if(s == 0) {
+			rgb.x = 1;
+			rgb.y = 1;
+			rgb.z = 1;
+		}else {
+			float q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+	        float p = 2 * l - q;
+	        rgb.x = hueToRgb(p, q, h + 1/3.0f);
+	        rgb.y = hueToRgb(p, q, h);
+	        rgb.z = hueToRgb(p, q, h - 1/3.0f);
+		}
+		
+		return rgb;
+	}
+	
+	private static float hueToRgb(float p, float q, float t) {
+		 if(t < 0) t += 1;
+         if(t > 1) t -= 1;
+         if(t < 1/6.0f) return p + (q - p) * 6 * t;
+         if(t < 1/2.0f) return q;
+         if(t < 2/3.0f) return p + (q - p) * (2/3.0f - t) * 6;
+         return p;
 	}
 	
 	public static Vector2f getNormalizedDeviceSpace(float x, float y) {

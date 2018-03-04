@@ -12,14 +12,14 @@ import static org.lwjgl.opengl.GL11.glViewport;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.util.vector.Vector2f;
 
 import callback.Callbacks;
 import entity.EntityCreator;
+import gui.GUIRenderer;
 import rooms.RoomMap;
+import shaders.GUIShader;
 import shaders.StaticShader;
 public class Main {
 	
@@ -30,7 +30,9 @@ public class Main {
 	private static Input keyIn;
 	private static EntitiesMap emap;
 	private static Renderer renderer;
+	private static GUIRenderer guiRenderer;
 	private static StaticShader shader;
+	private static GUIShader guiShader;
 	private static Loader loader;
 	public static EntityCreator creator;
 	public static Callbacks c;
@@ -67,21 +69,24 @@ public class Main {
 			frames++;
 			if (System.currentTimeMillis() - timer > 1000) {
 	            timer += 1000;
-	            //sSystem.out.println(updates + " ups, " + frames + " fps");
+	            //System.out.println(updates + " ups, " + frames + " fps");
 	            updates = 0;
 	            frames = 0;
 	         }
 		}
 		
 		shader.cleanUp();
+		guiShader.cleanUp();
 		loader.cleanUp();
 	}
 	
 	private static void initGame() {
-		shader = new StaticShader();
-		renderer = new Renderer(shader);
-		game = new Game(renderer, shader);
 		loader = new Loader();
+		shader = new StaticShader();
+		guiShader = new GUIShader();
+		renderer = new Renderer(shader);
+		guiRenderer = new GUIRenderer(loader, guiShader);
+		game = new Game(renderer, guiRenderer, shader);
 		c = new Callbacks();
 		creator = new EntityCreator(loader);
 		keyIn = new Input(creator);
@@ -98,7 +103,7 @@ public class Main {
 	}
 	
 	private static void update() {
-		Vector2f mouseVec = EntitiesMap.getCellVec(Mouse.getX(), Mouse.getY());
+		//Vector2f mouseVec = EntitiesMap.getCellVec(Mouse.getX(), Mouse.getY());
 		//System.out.println("Mouse x: "+mouseVec.x+" Mouse y: "+mouseVec.y);
 		game.update();
 		emap.update();
@@ -108,9 +113,8 @@ public class Main {
 	private static void render() {
 		renderer.prepare();
 		
-		shader.start();
-		game.render();
-		shader.stop();
+		game.renderEntities();
+		game.renderGUIs();
 				
 		Display.update();
 		Display.sync(60);

@@ -15,7 +15,7 @@ public class Input {
 	}
 	
 	public void getInput() {
-		if(player.health.currentHealth>0) {
+		if(player.health.getCurrentHealth()>0) {
 			if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
 				player.transform.move(0, 1);
 			}

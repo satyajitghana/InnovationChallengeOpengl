@@ -55,6 +55,13 @@ public class Loader {
 		return new Material(vaoID, indices.length, tex);
 	}
 	
+	public Material loadToVAO(float[] vertices) {
+		int vaoID = createVAO();
+		storeDataInAttributeList(0, 2, vertices);
+		unbindVAO();
+		return new Material(vaoID, vertices.length/2);
+	}
+	
 	public int loadTexture(String fileName) {
 		Texture tex = null;
 		try {
