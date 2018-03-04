@@ -39,7 +39,6 @@ public class HealthComponent extends Component{
 	
 	@Override
 	public void update() {	
-		System.out.println(currentHealth);
 		if(currentHealth<=0){
 			attachedTo.destroy();
 			if(healthbar != null) Game.guis.remove(healthbar);
