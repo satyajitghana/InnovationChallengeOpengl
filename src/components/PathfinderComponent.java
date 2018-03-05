@@ -16,7 +16,7 @@ public class PathfinderComponent extends Component{
 	private Entity target;
 	
 	public PathfinderComponent(Entity attachedTo, Entity target) {
-		super(ComponentID.AI, attachedTo);
+		super(ComponentID.pathfinder, attachedTo);
 		this.target = target;
 		this.path = new Stack<Pair <Integer, Integer>>();
 		

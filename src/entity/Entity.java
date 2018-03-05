@@ -41,17 +41,18 @@ public class Entity {
 
 	}
 	
-	public void removeComponent(Component c) {
+	public void removeComponent(ComponentID id) {
+		Component c = getComponentWithID(id);
 		c.toRemove = true;
 		components.remove(c);
 		
-		if(c.getId() == ComponentID.transform)
+		if(id == ComponentID.transform)
 			this.transform = null;
-		else if(c.getId() == ComponentID.health)
+		else if(id == ComponentID.health)
 			this.health = null;
-		else if(c.getId() == ComponentID.material) 
+		else if(id == ComponentID.material) 
 			this.material = null;
-		else if(c.getId() == ComponentID.collision)
+		else if(id == ComponentID.collision)
 			this.collisionComponent = null;
 	}
 	
@@ -63,6 +64,16 @@ public class Entity {
 	
 	public ArrayList<Component> getComponents(){
 		return this.components;
+	}
+	
+	private Component getComponentWithID(ComponentID id) {
+		for(int i = 0;i<components.size();i++) {
+			if(components.get(i).getId() == id){
+				return components.get(i);
+			}
+		}
+		
+		return null;
 	}
 
 }

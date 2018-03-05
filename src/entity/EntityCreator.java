@@ -1,6 +1,5 @@
 package entity;
 
-import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -8,10 +7,14 @@ import components.CollisionComponent;
 import components.HealthComponent;
 import components.MaterialComponent;
 import components.MiscComponent;
+import components.StateMachineComponent;
 import components.TransformComponent;
 import components.WindowExitTriggerComponent;
 import engine.Loader;
 import engine.Main;
+import fsm.EnemyAttackState;
+import fsm.EnemyIdleState;
+import fsm.StateMachine;
 import gui.GUI;
 
 public class EntityCreator {
@@ -45,16 +48,10 @@ public class EntityCreator {
 		
 	}
 	
-	public void createBullet() {
+	public void createBullet(Vector2f pos, Vector2f dir, float rot) {
 		Entity bullet = new Entity(EntityID.bullet);
 		
-		float x = (float)(player.transform.pos.x + (player_size/2)*Math.cos(Math.toRadians(player.transform.rot+90)));
-		float y = (float)(player.transform.pos.y + (player_size/2)*Math.sin(Math.toRadians(player.transform.rot+90)));
-		Vector2f pos = new Vector2f(x, y);
-		Vector2f dir = new Vector2f(Mouse.getX() - player.transform.pos.x, Mouse.getY() - player.transform.pos.y);
-		dir.normalise();
-		
-		bullet.addComponent(new TransformComponent(bullet, pos, player.transform.rot, 1, 10));
+		bullet.addComponent(new TransformComponent(bullet, pos, rot, 1, 10));
 		bullet.addComponent(new MaterialComponent(bullet, loader.loadToVAO(8, 8, "bullet"), 8, 8));
 		bullet.addComponent(new MiscComponent(bullet, Main.c.propel(), bullet, dir));
 		bullet.addComponent(new WindowExitTriggerComponent(bullet, 50, Main.c.windowExitRemove(), bullet));
@@ -64,12 +61,18 @@ public class EntityCreator {
 	public Entity createEnemy(float x, float y, float rot, float sx, float sy) {
 		Entity enemy = new Entity(EntityID.enemy);
 		
+		StateMachine enemyStateMachine = new StateMachine();
+		EnemyAttackState attack = new EnemyAttackState(enemyStateMachine, enemy, player);
+		EnemyIdleState idle = new EnemyIdleState(enemyStateMachine, enemy, attack);
+		enemyStateMachine.setCurrentState(idle);
+		enemyStateMachine.setDefaultState(idle);
+		
 		enemy.addComponent(new TransformComponent(enemy, new Vector2f(x, y), rot, 1, 4));
 		enemy.addComponent(new MaterialComponent(enemy, loader.loadToVAO(sx, sy, "enemy"), sx, sy));
 		enemy.addComponent(new WindowExitTriggerComponent(enemy, 0, Main.c.inWindow(), enemy));
 		enemy.addComponent(new CollisionComponent(enemy, sx/2, sy/2, Main.c.enemyCollision(), enemy));
 		enemy.addComponent(new HealthComponent(enemy, 100));
-		enemy.addComponent(new MiscComponent(enemy, Main.c.followRotation(), enemy, player));
+		enemy.addComponent(new StateMachineComponent(enemy, enemyStateMachine));
 //		enemy.addComponent(new PathfinderComponent(enemy, player));
 		
 		return enemy;
@@ -94,7 +97,7 @@ public class EntityCreator {
 		
 		return gate;
 	}
-	
+		
 	public Entity getPlayer() {
 		return this.player;
 	}

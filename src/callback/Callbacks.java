@@ -86,6 +86,14 @@ public class Callbacks {
 					}
 				}
 				
+				if(e.id == EntityID.bullet) {
+					Collision c = player.collisionComponent.getAABB().getCollision(e.collisionComponent.getAABB());
+					if(c.isIntersecting) {
+						e.destroy();
+						player.health.reduceHealth(0.5f);
+					}
+				}
+				
 			}
 		};
 	}

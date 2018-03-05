@@ -7,5 +7,6 @@ public enum ComponentID {
 	windowTrigger,
 	misc, 
 	collision,
-	AI;
+	pathfinder,
+	stateMachine;
 }
