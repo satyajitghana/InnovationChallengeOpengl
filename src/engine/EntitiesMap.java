@@ -8,6 +8,7 @@ import org.lwjgl.util.vector.Vector2f;
 import ai.Pair;
 import components.Component;
 import components.ComponentID;
+import entity.EntityID;
 
 public class EntitiesMap {
 	
@@ -79,11 +80,26 @@ public class EntitiesMap {
 	public static boolean cellIsUnblocked(int x, int y) {
 //		System.out.println("\'"+coordToString(x, y)+"\'");
 //		System.out.println("x: "+x+" y: "+y);
-		
 		if(validateCell(x, y)) {
 			try {
+				ArrayList<Component> cs  = map.get(coordToString(x, y));
+				if(cs.size() == 1 && (cs.get(0).getAttachedTo().id == EntityID.player || cs.get(0).getAttachedTo().id == EntityID.enemy)) {
+					return true;
+				}
+				
+				boolean flag = false;
+				for(Component c: cs) {
+					if(c.getAttachedTo().id != EntityID.enemy)
+						flag = true;
+				}
+				if(!flag) return true;
+				
+//				if(map.get(coordToString(x, y)).size() != 0)
+//				System.out.println("stuff: "+map.get(coordToString(x, y)).get(0).getAttachedTo().id);
+
 				return map.get(coordToString(x, y)).isEmpty();
 			}catch(NullPointerException e) {
+				System.out.println("fdsf");
 				return false;
 			}
 		}

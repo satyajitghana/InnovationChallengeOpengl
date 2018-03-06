@@ -7,11 +7,13 @@ import components.CollisionComponent;
 import components.HealthComponent;
 import components.MaterialComponent;
 import components.MiscComponent;
+import components.PathfinderComponent;
 import components.StateMachineComponent;
 import components.TransformComponent;
 import components.WindowExitTriggerComponent;
 import engine.Loader;
 import engine.Main;
+import engine.Material;
 import fsm.EnemyAttackState;
 import fsm.EnemyIdleState;
 import fsm.StateMachine;
@@ -22,12 +24,15 @@ public class EntityCreator {
 	public static final float player_speed = 4;
 	
 	private Entity player;
+	private Material bg;
 	private Light light;
 	private Loader loader;
 	
 	public EntityCreator(Loader loader) {
 		this.player = new Entity(EntityID.player);
 		this.loader = loader;
+		float vertices[] = {-1, 1, -1, -1, 1, -1, 1, 1};
+		this.bg = loader.loadToVAO(vertices, "bg");
 		
 	}
 	
@@ -67,13 +72,13 @@ public class EntityCreator {
 		enemyStateMachine.setCurrentState(idle);
 		enemyStateMachine.setDefaultState(idle);
 		
-		enemy.addComponent(new TransformComponent(enemy, new Vector2f(x, y), rot, 1, 4));
+		enemy.addComponent(new TransformComponent(enemy, new Vector2f(x, y), rot, 1, 2));
 		enemy.addComponent(new MaterialComponent(enemy, loader.loadToVAO(sx, sy, "enemy"), sx, sy));
 		enemy.addComponent(new WindowExitTriggerComponent(enemy, 0, Main.c.inWindow(), enemy));
 		enemy.addComponent(new CollisionComponent(enemy, sx/2, sy/2, Main.c.enemyCollision(), enemy));
 		enemy.addComponent(new HealthComponent(enemy, 100));
-		enemy.addComponent(new StateMachineComponent(enemy, enemyStateMachine));
-//		enemy.addComponent(new PathfinderComponent(enemy, player));
+//		enemy.addComponent(new StateMachineComponent(enemy, enemyStateMachine));
+		enemy.addComponent(new PathfinderComponent(enemy, player));
 		
 		return enemy;
 		
@@ -104,5 +109,9 @@ public class EntityCreator {
 	
 	public Light getLight() {
 		return light;
+	}
+	
+	public Material getBg() {
+		return this.bg;
 	}
 }

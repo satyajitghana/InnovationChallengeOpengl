@@ -7,10 +7,17 @@ out vec2 pass_textureCoords;
 
 uniform mat4 transform;
 uniform mat4 projection;
+uniform float renderingBG;
 
 void main(void){
 
-	vec4 worldPos = transform * vec4(position, 1.0);
-	gl_Position = projection * worldPos;
-	pass_textureCoords = textureCoords;
+	if(renderingBG == 1){
+		pass_textureCoords = textureCoords * 5;
+		gl_Position = vec4(position, 1.0);
+		
+	}else{
+		pass_textureCoords = textureCoords;
+		vec4 worldPos = transform * vec4(position, 1.0);
+		gl_Position = projection * worldPos;
+	}
 }

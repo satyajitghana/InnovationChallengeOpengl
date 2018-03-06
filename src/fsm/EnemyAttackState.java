@@ -27,7 +27,7 @@ public class EnemyAttackState extends State{
 
 	@Override
 	public void update() {
-		int prob = random.nextInt(40);
+		int prob = random.nextInt(20);
 		
 		if(prob == 0) {
 			float x = (float)(attachedTo.transform.pos.x + (attachedTo.material.getSx()/2)*Math.cos(Math.toRadians(attachedTo.transform.rot+90)));

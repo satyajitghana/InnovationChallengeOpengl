@@ -17,7 +17,7 @@ void main() {
 	
 	float att = clamp(1.0 - d*d/(radius*radius), 0.0, 1.0);
 	att *= att;
-	//att = 1;
+	att = 1;
 	
 	vec3 intensity = clamp(lightIntensity * att, 0.0, 1.0);
 	

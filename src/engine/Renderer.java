@@ -24,15 +24,23 @@ public class Renderer {
 	
 	public void render(MaterialComponent material, StaticShader shader) {
 		shader.loadTransformationMatrix(material.getAttachedTo().transform.getTransformationMatrix());
-		GL30.glBindVertexArray(material.getMaterial().getVaoID());
+		draw(material.getMaterial());
+	}
+	
+	public void render(Material material) {
+		draw(material);
+	}
+	
+	private void draw(Material material) {
+		GL30.glBindVertexArray(material.getVaoID());
 		{
 			GL20.glEnableVertexAttribArray(0);
 			GL20.glEnableVertexAttribArray(1);
 			
 			GL13.glActiveTexture(GL13.GL_TEXTURE0);
-			GL11.glBindTexture(GL11.GL_TEXTURE_2D, material.getMaterial().getTextureID());
+			GL11.glBindTexture(GL11.GL_TEXTURE_2D, material.getTextureID());
 			{
-				GL11.glDrawElements(GL11.GL_TRIANGLES, material.getMaterial().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+				GL11.glDrawElements(GL11.GL_TRIANGLES, material.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
 			}
 			GL20.glDisableVertexAttribArray(0);
 			GL20.glDisableVertexAttribArray(1);

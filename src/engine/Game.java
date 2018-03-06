@@ -39,6 +39,11 @@ public class Game {
 	public void renderEntities() {
 		shader.start();
 		shader.loadLight(Main.creator.getLight());
+		
+		shader.isRenderingBg(true);
+		renderer.render(Main.creator.getBg());
+		shader.isRenderingBg(false);
+		
 		for(int i=0;i<renderComponents.size();i++) {
 			Component c = renderComponents.get(i);
 			if(c.toRemove) {

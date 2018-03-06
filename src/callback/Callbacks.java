@@ -19,20 +19,20 @@ public class Callbacks {
 			int dir = (int)extra[0];
 			int offset = (int) extra[1];
 				
-			Entity player = (Entity)data[0];
+			Entity entity = (Entity)data[0];
 			
 			switch(dir) {
 			case 0:
-				player.transform.pos.x = offset;
+				entity.transform.pos.x = offset;
 				break;
 			case 1:
-				player.transform.pos.x = Main.WIDTH-offset;
+				entity.transform.pos.x = Main.WIDTH-offset;
 				break;
 			case 2:
-				player.transform.pos.y = offset;
+				entity.transform.pos.y = offset;
 				break;
 			case 3:
-				player.transform.pos.y = Main.HEIGHT-offset;
+				entity.transform.pos.y = Main.HEIGHT-offset;
 			}
 			
 		};

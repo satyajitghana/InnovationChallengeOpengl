@@ -12,6 +12,7 @@ public class StaticShader extends ShaderProgram{
 	private int location_tranform;
 	private int location_projection;
 	private int location_texture;
+	private int location_bg;
 	private int location_lightPos;
 	private int location_lightColor;
 	private int location_radius;
@@ -32,6 +33,7 @@ public class StaticShader extends ShaderProgram{
 		location_tranform = super.getUniformLocation("transform");
 		location_projection = super.getUniformLocation("projection");
 		location_texture = super.getUniformLocation("textureSampler");
+		location_bg = super.getUniformLocation("renderingBG");
 		location_lightPos = super.getUniformLocation("lightPos");
 		location_lightColor = super.getUniformLocation("lightColor");
 		location_intensity = super.getUniformLocation("lightIntensity");
@@ -58,5 +60,9 @@ public class StaticShader extends ShaderProgram{
 	
 	public void loadProjectionMatrix(Matrix4f projection) {
 		super.loadMatrix(location_projection, projection);
+	}
+	
+	public void isRenderingBg(boolean value) {
+		super.loadBoolean(location_bg, value);
 	}
 }
