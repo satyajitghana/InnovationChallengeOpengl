@@ -12,10 +12,8 @@ import static org.lwjgl.opengl.GL11.glViewport;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.util.vector.Vector2f;
 
 import callback.Callbacks;
 import entity.EntityCreator;
@@ -92,6 +90,7 @@ public class Main {
 		game = new Game(renderer, guiRenderer, shader);
 		c = new Callbacks();
 		creator = new EntityCreator(loader);
+		creator.createPlayer(WIDTH/2, HEIGHT/2, 0);
 		keyIn = new Input(creator);
 		emap = new EntitiesMap();
 		new RoomMap("res/data/roomMap.data", loader);
@@ -106,8 +105,6 @@ public class Main {
 	}
 	
 	private static void update() {
-//		Vector2f mouseVec = EntitiesMap.getCellVec(Mouse.getX(), Mouse.getY());
-//		System.out.println("Mouse x: "+mouseVec.x+" Mouse y: "+mouseVec.y);
 		game.update();
 		emap.update();
 		RoomMap.currentRoom.update();

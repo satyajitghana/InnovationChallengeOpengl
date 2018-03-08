@@ -1,4 +1,4 @@
-package ai;
+package pathfinder;
 
 class Cell {
 	public int parent_i, parent_j;

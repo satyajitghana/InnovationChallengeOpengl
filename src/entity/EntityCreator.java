@@ -47,7 +47,7 @@ public class EntityCreator {
 		player.addComponent(new WindowExitTriggerComponent(player, 0, Main.c.inWindow(), player));
 		player.addComponent(new CollisionComponent(player, player_size/2, player_size/2, Main.c.playerCollision(), player));
 		
-		this.light = new Light(playerPos, new Vector3f(1,0.8f,0.6f), new Vector3f(1,1,1), 150f);
+		this.light = new Light(playerPos, new Vector3f(1,0.8f,0.6f), new Vector3f(1,1,1), 250f);
 		
 		return player;
 		
@@ -77,7 +77,7 @@ public class EntityCreator {
 		enemy.addComponent(new WindowExitTriggerComponent(enemy, 0, Main.c.inWindow(), enemy));
 		enemy.addComponent(new CollisionComponent(enemy, sx/2, sy/2, Main.c.enemyCollision(), enemy));
 		enemy.addComponent(new HealthComponent(enemy, 100));
-//		enemy.addComponent(new StateMachineComponent(enemy, enemyStateMachine));
+		enemy.addComponent(new StateMachineComponent(enemy, enemyStateMachine));
 		enemy.addComponent(new PathfinderComponent(enemy, player));
 		
 		return enemy;

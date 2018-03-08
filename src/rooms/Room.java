@@ -1,9 +1,8 @@
 package rooms;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import components.Component;
@@ -46,13 +45,14 @@ public class Room {
 	}
 	
 	private void readFile() throws IOException{
-		BufferedReader br = new BufferedReader(new FileReader(new File(path)));
+		BufferedReader br = new BufferedReader(new InputStreamReader(Class.class.getResourceAsStream(path)));
 		String s;
 		while((s = br.readLine()) != null) {
 			String[] stuff = s.split(",");
 			
 			if(stuff[0].equals("player")) {
-				entities.add(Main.creator.createPlayer(Integer.parseInt(stuff[1]), Integer.parseInt(stuff[2]), Integer.parseInt(stuff[3])));
+				Main.creator.getPlayer().transform.pos.x = Integer.parseInt(stuff[1]);
+				Main.creator.getPlayer().transform.pos.y = Integer.parseInt(stuff[2]);
 			}
 			else if(stuff[0].equals("wall")) {
 				entities.add(Main.creator.createWall(Integer.parseInt(stuff[1]), Integer.parseInt(stuff[2]), Integer.parseInt(stuff[3]), Integer.parseInt(stuff[4]), Integer.parseInt(stuff[5])));

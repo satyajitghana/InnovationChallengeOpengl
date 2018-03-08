@@ -1,4 +1,4 @@
-package ai;
+package pathfinder;
 /*
  * Author and Maintainer : SATYAJIT
  * A* Algorithm Implementation in JAVA
@@ -9,13 +9,8 @@ import java.util.TreeSet;
 
 import engine.*;
 
+@SuppressWarnings("unused")
 public class ASearch {
-	// to check if the current cell is valid cell in the grid
-	// return boolean false if it is not, and true if it is.
-	/*public static boolean isValid(int row, int column, int RMAX, int CMAX) {
-		return (row >= 0) && (row < RMAX) && (column >= 0) && (column < CMAX);
-	}*/
-	
 	// to check if the destination has been reached or not
 	// return a boolean true or false
 	public static boolean isDestination(int row, int col, Pair <Integer, Integer> dest) {
@@ -33,8 +28,6 @@ public class ASearch {
 	
 	// To trace the path obtained
 	public static void tracePath(Cell cellDetails[][], Pair <Integer, Integer> dest) {
-	//public static Stack <Pair <Integer, Integer>> tracePath(Cell cellDetails[][], Pair <Integer, Integer> dest) {
-		System.out.println("The path is : ");
 		int row = dest.first;
 		int column = dest.second;
 
@@ -50,18 +43,12 @@ public class ASearch {
 		}
 		path.push(new Pair <Integer, Integer>(row, column));
 
-		//Print Utility, path contains the path to be followed
-		/*while ( !path.empty() ) {
-			Pair <Integer, Integer> p = path.pop();
-			System.out.print("-> (" + p.first + "," + p.second + ") ");
-		}*/
 		return;
 	}
 
 	// get the cell details
 	// takes the source and destination as a Pair, and returns a stack that contains the path from source to destination
 	public static Stack < Pair <Integer, Integer>> getPath(Pair <Integer, Integer> src, Pair <Integer, Integer> dest) {
-		/*Stack < Pair <Integer, Integer>> path = tracePath();*/
 		AStarSearch(src, dest);
 		return path;
 	}
@@ -69,52 +56,33 @@ public class ASearch {
 	//The A-Star Search Algorithm
 
 	//public static void AStarSearch(boolean grid[][], Pair <Integer, Integer> src, Pair <Integer, Integer> dest) {
-	public static void AStarSearch(Pair <Integer, Integer> src, Pair <Integer, Integer> dest) {
-		// Check if the source is reachable
-		/*if (isValid(src.first, src.second, grid.length, grid[0].length) == false) {
-			System.out.println("Source is invalid");
-			return;
-		}
-
-		// Check if the destination is reachable
-		if (isValid(dest.first, dest.second, grid.length, grid[0].length) == false) {
-			System.out.println("Destination is invalid");
-			return;
-		}*/
-		
+	public static void AStarSearch(Pair <Integer, Integer> src, Pair <Integer, Integer> dest) {	
 		Pair <Integer, Integer> size = EntitiesMap.getRowsAndCols();
+//		System.out.println("size x: "+size.first+" size y: "+size.second);
 
 		if (EntitiesMap.validateCell(src.first, src.second) == false) {
-			System.out.println("Source is invalid");
+//			System.out.println("Source is invalid");
 			return;
 		}
 
 		if (EntitiesMap.validateCell(dest.first, dest.second) == false) {
-			System.out.println("Destination is invalid");
+//			System.out.println("Destination is invalid");
 			return;
 		}
-
-		/*if (grid[src.first][src.second] == false ||
-				grid[dest.first][dest.second] == false) {
-			System.out.println("Source or the Destination is blocked");
-			return;
-		}*/
 		
 		if (isDestination(src.first, src.second, dest) == true) {
-			System.out.println("We are already at the destination");
+//			System.out.println("We are already at the destination");
 			return;
 		}
 
 		if (EntitiesMap.cellIsUnblocked(src.first, src.second) == false ||
 			EntitiesMap.cellIsUnblocked(dest.first, dest.second) == false) {
-			System.out.println("Source or the Destination is blocked");
+//			System.out.println("Source or the Destination is blocked");
 			return;
 		}
 
-		/*boolean[][] closedList = new boolean[grid.length][grid[0].length];
-		Cell[][] cellDetails = new Cell[grid.length][grid[0].length];*/
-		boolean[][] closedList = new boolean[size.second][size.first];
-		Cell[][] cellDetails = new Cell[size.second][size.first];
+		boolean[][] closedList = new boolean[size.first][size.second];
+		Cell[][] cellDetails = new Cell[size.first][size.second];
 		int i, j;
 		for (i = 0 ; i < cellDetails.length ; i++) {
 			for (j = 0 ; j < cellDetails[0].length ; j++) {
@@ -159,7 +127,7 @@ public class ASearch {
 		// 1st Successor - North
 		successor = successorProcess(new AStarData(new Cell(i-1, j, 0.0, 0.0, 0.0), cellDetails), dest, closedList, i, j, false);
 		if (successor.destFound) {
-			System.out.println("The Destination Cell is found");
+//			System.out.println("The Destination Cell is found");
 			tracePath(successor.cellDetails, dest);
 			foundDest = true;
 			return;
@@ -173,7 +141,7 @@ public class ASearch {
 		// 2nd Successor - South
 		successor = successorProcess(new AStarData(new Cell(i+1, j, 0.0, 0.0, 0.0), cellDetails), dest, closedList, i, j, false);
 		if (successor.destFound) {
-			System.out.println("The Destination Cell is found");
+//			System.out.println("The Destination Cell is found");
 			tracePath(successor.cellDetails, dest);
 			foundDest = true;
 			return;
@@ -187,7 +155,7 @@ public class ASearch {
 		// 3rd Successor - East
 		successor = successorProcess(new AStarData(new Cell(i, j+1, 0.0, 0.0, 0.0), cellDetails), dest, closedList, i, j, false);
 		if (successor.destFound) {
-			System.out.println("The Destination Cell is found");
+//			System.out.println("The Destination Cell is found");
 			tracePath(successor.cellDetails, dest);
 			foundDest = true;
 			return;
@@ -201,7 +169,7 @@ public class ASearch {
 		// 4th Successor - West
 		successor = successorProcess(new AStarData(new Cell(i, j-1, 0.0, 0.0, 0.0), cellDetails), dest, closedList, i, j, false);
 		if (successor.destFound) {
-			System.out.println("The Destination Cell is found");
+//			System.out.println("The Destination Cell is found");
 			tracePath(successor.cellDetails, dest);
 			foundDest = true;
 			return;
@@ -215,7 +183,7 @@ public class ASearch {
 		// 5th Successor - North-East
 		successor = successorProcess(new AStarData(new Cell(i-1, j+1, 0.0, 0.0, 0.0), cellDetails), dest, closedList, i, j, true);
 		if (successor.destFound) {
-			System.out.println("The Destination Cell is found");
+//			System.out.println("The Destination Cell is found");
 			tracePath(successor.cellDetails, dest);
 			foundDest = true;
 			return;
@@ -229,7 +197,7 @@ public class ASearch {
 		// 6th Successor - North-West
 		successor = successorProcess(new AStarData(new Cell(i-1, j-1, 0.0, 0.0, 0.0), cellDetails), dest, closedList, i, j, true);
 		if (successor.destFound) {
-			System.out.println("The Destination Cell is found");
+//			System.out.println("The Destination Cell is found");
 			tracePath(successor.cellDetails, dest);
 			foundDest = true;
 			return;
@@ -243,7 +211,7 @@ public class ASearch {
 		// 7th Successor - South-East
 		successor = successorProcess(new AStarData(new Cell(i+1, j+1, 0.0, 0.0, 0.0), cellDetails), dest, closedList, i, j, true);
 		if (successor.destFound) {
-			System.out.println("The Destination Cell is found");
+//			System.out.println("The Destination Cell is found");
 			tracePath(successor.cellDetails, dest);
 			foundDest = true;
 			return;
@@ -257,7 +225,7 @@ public class ASearch {
 		// 8th Successor - South-West
 		successor = successorProcess(new AStarData(new Cell(i+1, j-1, 0.0, 0.0, 0.0), cellDetails), dest, closedList, i, j, true);
 		if (successor.destFound) {
-			System.out.println("The Destination Cell is found");
+//			System.out.println("The Destination Cell is found");
 			tracePath(successor.cellDetails, dest);
 			foundDest = true;
 			return;
@@ -269,18 +237,13 @@ public class ASearch {
 		}
 
 	} // end of the while the set is not empty loop
-
-	if (foundDest == false)
-		System.out.println("Failed to find the Destination Cell");
 		
 	} // end of a-start function
 	
-	//public static AStarData successorProcess(AStarData currSuccessor, Pair <Integer, Integer> dest, boolean[][] closedList, boolean[][] grid, int parent_i, int parent_j, boolean isDiagonal) {
 	public static AStarData successorProcess(AStarData currSuccessor, Pair <Integer, Integer> dest, boolean[][] closedList, int parent_i, int parent_j, boolean isDiagonal) {
 		int i = currSuccessor.newCell.parent_i;
 		int j = currSuccessor.newCell.parent_j;
 		Cell[][] cellDetails = currSuccessor.cellDetails;
-		//if (isValid(i, j, grid.length, grid[0].length)) {
 		if (EntitiesMap.validateCell(i, j) == true) {
 			if (isDestination(i, j, dest)) {
 				cellDetails[i][j].parent_i = parent_i;
@@ -290,7 +253,6 @@ public class ASearch {
 				return currSuccessor;
 			}
 
-			//else if (closedList[i][j] == false && grid[i][j] == true) {
 			else if(closedList[i][j] == false && EntitiesMap.cellIsUnblocked(i, j) == true) {
 				currSuccessor.newCell.g = cellDetails[parent_i][parent_j].g;
 				if (isDiagonal) currSuccessor.newCell.g += 1.414;
@@ -308,30 +270,4 @@ public class ASearch {
 		}
 		return currSuccessor;
 	}
-/*
-	public static void main(String [] args) {
-		@SuppressWarnings("resource")
-		Scanner input = new Scanner(System.in);
-		System.out.println("Enter the Size of the GRID , M X N ");
-		boolean [][]grid = new boolean[input.nextInt()][input.nextInt()];
-		System.out.println("Now enter " + grid.length + " X " + grid[0].length);
-		System.out.println("1 for true and 0 for false");
-		for (int i = 0 ; i < grid.length ; i++) {
-			for (int j = 0 ; j < grid[0].length ; j++) {
-				grid[i][j] = ((input.nextInt() == 1) ? true : false);
-			}
-		}
-		for (boolean []t : grid)
-			System.out.println(Arrays.toString(t));
-		int src_i, src_j, dest_i, dest_j;
-		System.out.println("Enter the coordinates of the source : ");
-		src_i = input.nextInt(); src_j = input.nextInt();
-		System.out.println("Enter the coordinates of the destination : ");
-		dest_i = input.nextInt(); dest_j = input.nextInt();
-
-		Pair <Integer, Integer> src = new Pair <Integer, Integer>(src_i, src_j);
-		Pair <Integer, Integer> dest = new Pair <Integer, Integer>(dest_i, dest_j);
-		
-		AStarSearch(grid, src, dest);
-	}*/
 }

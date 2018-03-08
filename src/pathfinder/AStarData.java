@@ -1,4 +1,4 @@
-package ai;
+package pathfinder;
 
 class AStarData {
 	public Cell newCell;

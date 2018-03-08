@@ -1,4 +1,4 @@
-package ai;
+package pathfinder;
 
 // Generic Type Class Pair to store two values
 public class Pair <T extends Comparable <? super T>, E extends Comparable < ? super E>> implements Comparable <Pair <T, E>> {

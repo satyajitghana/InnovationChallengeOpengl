@@ -5,8 +5,8 @@ import org.lwjgl.util.vector.Vector3f;
 
 public class GUIShader extends ShaderProgram{
 
-	private static final String VERTEX_SHADER = "src/shaders/guiShader.vert";
-	private static final String FRAGMENT_SHADER = "src/shaders/guiShader.frag";
+	private static final String VERTEX_SHADER = "/shaders/guiShader.vert";
+	private static final String FRAGMENT_SHADER = "/shaders/guiShader.frag";
 	
 	private int location_transformation;
 	private int location_texture;

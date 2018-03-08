@@ -5,10 +5,10 @@ import java.util.HashMap;
 
 import org.lwjgl.util.vector.Vector2f;
 
-import ai.Pair;
 import components.Component;
 import components.ComponentID;
 import entity.EntityID;
+import pathfinder.Pair;
 
 public class EntitiesMap {
 	
@@ -60,7 +60,7 @@ public class EntitiesMap {
 		Vector2f topRight = getCellVec(pos_x+(sx/2), pos_y+(sy/2));
 		Vector2f bottomLeft = getCellVec(pos_x-(sx/2), pos_y-(sy/2));
 		
-		for(float i = bottomLeft.x; i<=topRight.x;i++) {
+		for(float i = bottomLeft.x; i>=topRight.x;i--) {
 			for(float j = bottomLeft.y; j<=topRight.y;j++) {
 				cells.add(coordToString(i, j));
 			}
@@ -72,8 +72,8 @@ public class EntitiesMap {
 	//AI FUNCTIONS
 	////////////////////////////////////////////////////////////////////////
 	public static boolean validateCell(int x, int y) {
-		boolean value = (x>=1 && x<=rows) && (y>=1 && y<=cols);
-//		System.out.println("x: "+x+" rows: "+rows+"\ny: "+y+" cols: "+cols+"\n");
+		boolean value = (x>=0 && x<=rows) && (y>=0 && y<=cols);
+		//System.out.println("x: "+x+" rows: "+rows+"\ny: "+y+" cols: "+cols+"\n");
 		return value;
 	}
 	
@@ -116,15 +116,27 @@ public class EntitiesMap {
 	}
 	
 	public static String getCellS(float x, float y) {
-		return Integer.toString((int)(x/CELL_SIZE))+","+Integer.toString((int)(y/CELL_SIZE));
+		return Integer.toString(rows - (int)(y/CELL_SIZE))+","+Integer.toString((int)(x/CELL_SIZE));
 	}
 	
 	public static Vector2f getCellVec(float x, float y) {
-		return new Vector2f((int)(x/CELL_SIZE), (int)(y/CELL_SIZE));
+		return new Vector2f(rows - (int)(y/CELL_SIZE), (int)(x/CELL_SIZE));
 	}
 	
 	public static String coordToString(float x, float y) {
 		return Integer.toString((int) x)+","+Integer.toString((int) y);
+	}
+	
+	public static Vector2f getCellVecNormalCoordinateSystem(float x, float y) {
+		return new Vector2f((int)(x/CELL_SIZE), (int)(y/CELL_SIZE));
+	}
+	
+	public static int getRows() {
+		return rows;
+	}
+	
+	public static int getCols() {
+		return cols;
 	}
 	
 	private void initMap() {
