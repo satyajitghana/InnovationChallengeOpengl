@@ -7,7 +7,7 @@ package pathfinder;
 import java.util.Stack;
 import java.util.TreeSet;
 
-import engine.*;
+import engine.EntitiesMap;
 
 @SuppressWarnings("unused")
 public class ASearch {

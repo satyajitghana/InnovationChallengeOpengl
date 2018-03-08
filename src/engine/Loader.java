@@ -20,7 +20,6 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
-import org.newdawn.slick.util.ResourceLoader;
 
 public class Loader {
 	
@@ -75,7 +74,7 @@ public class Loader {
 	public int loadTexture(String fileName) {
 		Texture tex = null;
 		try {
-			tex = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/images/"+fileName+".png"));
+			tex = TextureLoader.getTexture("PNG", Class.class.getResourceAsStream(("/images/"+fileName+".png")));
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -1);

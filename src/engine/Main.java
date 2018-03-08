@@ -93,7 +93,7 @@ public class Main {
 		creator.createPlayer(WIDTH/2, HEIGHT/2, 0);
 		keyIn = new Input(creator);
 		emap = new EntitiesMap();
-		new RoomMap("res/data/roomMap.data", loader);
+		new RoomMap("/data/roomMap.data", loader);
 		
 		creator.getPlayer().transform.pos.x = 400;
 		creator.getPlayer().transform.pos.y = 300;

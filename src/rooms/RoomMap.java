@@ -1,9 +1,8 @@
 package rooms;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,7 +24,7 @@ public class RoomMap {
 	
 	private void loadRoomMap(String path){
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(new File(path)));
+			BufferedReader br = new BufferedReader(new InputStreamReader(Class.class.getResourceAsStream(path)));
 			
 			String s;
 			while((s = br.readLine()) != null) {
