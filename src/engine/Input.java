@@ -11,11 +11,15 @@ public class Input {
 	
 	private Entity player;
 	
-	public Input (EntityCreator creator) {
-		this.player = creator.getPlayer();
-	}
-	
 	public void getInput() {
+		
+		if(!Main.started) {
+			if(Keyboard.isKeyDown(Keyboard.KEY_P))
+				Main.start();
+		}
+		
+		
+		if(player == null) return;
 		if(player.health.getCurrentHealth()>0) {
 			if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
 				player.transform.move(0, 1);
@@ -43,5 +47,15 @@ public class Input {
 				}
 			}		
 		}
+		
+		if(player.health.getCurrentHealth()<=0) {
+			if(Keyboard.isKeyDown(Keyboard.KEY_R)) {
+				Main.restart();
+			}
+		}
+	}
+	
+	public void setPlayer(Entity player) {
+		this.player = player;
 	}
 }

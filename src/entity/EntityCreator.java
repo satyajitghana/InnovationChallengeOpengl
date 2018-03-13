@@ -29,7 +29,6 @@ public class EntityCreator {
 	private Loader loader;
 	
 	public EntityCreator(Loader loader) {
-		this.player = new Entity(EntityID.player);
 		this.loader = loader;
 		float vertices[] = {-1, 1, -1, -1, 1, -1, 1, 1};
 		this.bg = loader.loadToVAO(vertices, "bg");
@@ -37,6 +36,7 @@ public class EntityCreator {
 	}
 	
 	public Entity createPlayer(float x, float y, float rot) {
+		this.player = new Entity(EntityID.player);
 		Vector2f playerPos = new Vector2f(x, y);
 		GUI healthbar = new GUI(new Vector2f(-0.84f,0.95f), new Vector2f(0.15f,0.02f), player);
 		

@@ -10,6 +10,8 @@ import static org.lwjgl.opengl.GL11.glDisable;
 import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glViewport;
 
+import java.util.ArrayList;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
@@ -25,6 +27,8 @@ public class Main {
 	
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
+	
+	public static boolean started = false;
 	
 	private static Game game;
 	private static Input keyIn;
@@ -90,14 +94,9 @@ public class Main {
 		game = new Game(renderer, guiRenderer, shader);
 		c = new Callbacks();
 		creator = new EntityCreator(loader);
-		creator.createPlayer(WIDTH/2, HEIGHT/2, 0);
-		keyIn = new Input(creator);
+		keyIn = new Input();
 		emap = new EntitiesMap();
-		new RoomMap("/data/roomMap.data", loader);
-		
-		creator.getPlayer().transform.pos.x = 400;
-		creator.getPlayer().transform.pos.y = 300;
-		
+		//start();
 	}
 	
 	private static void getInput() {
@@ -107,7 +106,8 @@ public class Main {
 	private static void update() {
 		game.update();
 		emap.update();
-		RoomMap.currentRoom.update();
+		if(started)
+			RoomMap.currentRoom.update();
 	}
 	
 	private static void render() {
@@ -118,6 +118,23 @@ public class Main {
 				
 		Display.update();
 		Display.sync(60);
+	}
+	
+	protected static void start() {
+		creator.createPlayer(0, 0, 0);
+		new RoomMap("/data/roomMap.data", loader);
+		keyIn.setPlayer(creator.getPlayer());
+		started = true;
+		
+	}
+	
+	protected static void restart() {
+		RoomMap.currentRoom.destory();
+		RoomMap.currentRoom = null;
+		creator.createPlayer(0, 0, 0);
+		keyIn.setPlayer(creator.getPlayer());
+		RoomMap.visted = new ArrayList<Integer>();
+		RoomMap.visit(0, 0);
 	}
 	
 	private static void initDisplay() {

@@ -38,7 +38,9 @@ public class Game {
 	
 	public void renderEntities() {
 		shader.start();
-		shader.loadLight(Main.creator.getLight());
+		
+		if(Main.creator.getLight() != null)
+			shader.loadLight(Main.creator.getLight());
 		
 		shader.isRenderingBg(true);
 		renderer.render(Main.creator.getBg());
