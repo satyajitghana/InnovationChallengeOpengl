@@ -40,7 +40,7 @@ public class Main {
 	private static Loader loader;
 	
 	public static EntityCreator creator;
-	public static Callbacks c;
+	public static Callbacks callbacks;
 	
 	public static void main (String args[]) {
 		initDisplay();
@@ -92,11 +92,10 @@ public class Main {
 		renderer = new Renderer(shader);
 		guiRenderer = new GUIRenderer(loader, guiShader);
 		game = new Game(renderer, guiRenderer, shader);
-		c = new Callbacks();
+		callbacks = new Callbacks();
 		creator = new EntityCreator(loader);
 		keyIn = new Input();
 		emap = new EntitiesMap();
-		//start();
 	}
 	
 	private static void getInput() {
@@ -131,6 +130,7 @@ public class Main {
 	protected static void restart() {
 		RoomMap.currentRoom.destory();
 		RoomMap.currentRoom = null;
+		//loader.cleanUp();
 		creator.createPlayer(0, 0, 0);
 		keyIn.setPlayer(creator.getPlayer());
 		RoomMap.visted = new ArrayList<Integer>();

@@ -18,6 +18,15 @@ public class EnemyIdleState extends State{
 			this.dir = 1;
 		}
 	}
+	
+	public EnemyIdleState(StateMachine machine, Entity attachedTo) {
+		super(StateID.enemyIdleState, machine, attachedTo);
+		this.transitionState = null;
+		this.dir = -1;
+		if(new Random().nextInt(2) == 0) {
+			this.dir = 1;
+		}
+	}
 
 	@Override
 	public void enter() {}
@@ -26,7 +35,7 @@ public class EnemyIdleState extends State{
 	public void update() {
 		attachedTo.transform.rotate(attachedTo.transform.rot+(2*dir));
 		
-		if(Main.creator.getPlayer().health.getCurrentHealth() > 0) {
+		if(transitionState != null && Main.creator.getPlayer().health.getCurrentHealth() > 0) {
 			machine.changeState(transitionState);
 		}
 	}

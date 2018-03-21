@@ -57,6 +57,11 @@ public class EntitiesMap {
 		float sx = c.getAttachedTo().material.getSx();
 		float sy = c.getAttachedTo().material.getSy();
 		
+		if(c.getAttachedTo().id == EntityID.player || c.getAttachedTo().id == EntityID.enemy) {
+			sx /= 2;
+			sy /= 2;
+		}
+		
 		Vector2f topRight = getCellVec(pos_x+(sx/2), pos_y+(sy/2));
 		Vector2f bottomLeft = getCellVec(pos_x-(sx/2), pos_y-(sy/2));
 		

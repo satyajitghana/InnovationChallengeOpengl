@@ -42,10 +42,10 @@ public class EntityCreator {
 		
 		player.addComponent(new TransformComponent(player, playerPos, rot, 1, player_speed));
 		player.addComponent(new MaterialComponent(player, loader.loadToVAO(player_size, player_size, "player"), player_size, player_size));
-		player.addComponent(new HealthComponent(player, 100, healthbar));
-		player.addComponent(new MiscComponent(player, Main.c.followRotation(), player, "Mouse"));
-		player.addComponent(new WindowExitTriggerComponent(player, 0, Main.c.inWindow(), player));
-		player.addComponent(new CollisionComponent(player, player_size/2, player_size/2, Main.c.playerCollision(), player));
+		player.addComponent(new HealthComponent(player, 100, healthbar, true, 1/60f));
+		player.addComponent(new MiscComponent(player, Main.callbacks.followRotation(), player, "Mouse"));
+		player.addComponent(new WindowExitTriggerComponent(player, 0, Main.callbacks.inWindow(), player));
+		player.addComponent(new CollisionComponent(player, player_size/2, player_size/2, Main.callbacks.playerCollision(), player));
 		
 		this.light = new Light(playerPos, new Vector3f(1,0.8f,0.6f), new Vector3f(1,1,1), 250f);
 		
@@ -58,13 +58,13 @@ public class EntityCreator {
 		
 		bullet.addComponent(new TransformComponent(bullet, pos, rot, 1, 10));
 		bullet.addComponent(new MaterialComponent(bullet, loader.loadToVAO(8, 8, "bullet"), 8, 8));
-		bullet.addComponent(new MiscComponent(bullet, Main.c.propel(), bullet, dir));
-		bullet.addComponent(new WindowExitTriggerComponent(bullet, 50, Main.c.windowExitRemove(), bullet));
-		bullet.addComponent(new CollisionComponent(bullet, 8, 8, Main.c.bulletCollision(), bullet));
+		bullet.addComponent(new MiscComponent(bullet, Main.callbacks.propel(), bullet, dir));
+		bullet.addComponent(new WindowExitTriggerComponent(bullet, 50, Main.callbacks.windowExitRemove(), bullet));
+		bullet.addComponent(new CollisionComponent(bullet, 8, 8, Main.callbacks.bulletCollision(), bullet));
 	}
 	
 	public Entity createEnemy(float x, float y, float rot, float sx, float sy) {
-		Entity enemy = new Entity(EntityID.enemy);
+		Entity enemy = createBaseEnemy(x, y, rot, sx, sy, 1, 100, "enemy");
 		
 		StateMachine enemyStateMachine = new StateMachine();
 		EnemyAttackState attack = new EnemyAttackState(enemyStateMachine, enemy, player);
@@ -72,16 +72,20 @@ public class EntityCreator {
 		enemyStateMachine.setCurrentState(idle);
 		enemyStateMachine.setDefaultState(idle);
 		
-		enemy.addComponent(new TransformComponent(enemy, new Vector2f(x, y), rot, 1, 2));
-		enemy.addComponent(new MaterialComponent(enemy, loader.loadToVAO(sx, sy, "enemy"), sx, sy));
-		enemy.addComponent(new WindowExitTriggerComponent(enemy, 0, Main.c.inWindow(), enemy));
-		enemy.addComponent(new CollisionComponent(enemy, sx/2, sy/2, Main.c.enemyCollision(), enemy));
-		enemy.addComponent(new HealthComponent(enemy, 100));
+		enemy.addComponent(new CollisionComponent(enemy, sx/2, sy/2, Main.callbacks.enemyCollision(), enemy));
 		enemy.addComponent(new StateMachineComponent(enemy, enemyStateMachine));
-		enemy.addComponent(new PathfinderComponent(enemy, player));
-		
+
 		return enemy;
 		
+	}
+	
+	public Entity createExploEnemy(float x, float y, float rot, float sx, float sy) {
+		Entity enemy = createBaseEnemy(x, y, rot, sx, sy, 3, 50, "exploEnemy");
+	
+		enemy.addComponent(new CollisionComponent(enemy, sx/2, sy/2, Main.callbacks.enemyExploCollision(), enemy, 10f));
+		enemy.addComponent(new MiscComponent(enemy, Main.callbacks.followRotation(), enemy, player));
+		
+		return enemy;
 	}
 	
 	public Entity createWall(float x, float y, float rot, float sx, float sy) {
@@ -98,9 +102,21 @@ public class EntityCreator {
 		
 		gate.addComponent(new TransformComponent(gate, new Vector2f(x, y), rot, 1, 0));
 		gate.addComponent(new MaterialComponent(gate, loader.loadToVAO(sx, sy, "gateDisabled"), sx, sy));
-		gate.addComponent(new CollisionComponent(gate, sx, sy, Main.c.gateCollision(), gate, targetRoom));
+		gate.addComponent(new CollisionComponent(gate, sx, sy, Main.callbacks.gateCollision(), gate, targetRoom));
 		
 		return gate;
+	}
+	
+	private Entity createBaseEnemy(float x, float y, float rot, float sx, float sy, float speed, int health, String texture) {
+		Entity enemy = new Entity(EntityID.enemy);
+		
+		enemy.addComponent(new TransformComponent(enemy, new Vector2f(x, y), rot, 1, speed));
+		enemy.addComponent(new MaterialComponent(enemy, loader.loadToVAO(sx, sy, texture), sx, sy));
+		enemy.addComponent(new WindowExitTriggerComponent(enemy, 0, Main.callbacks.inWindow(), enemy));
+		enemy.addComponent(new HealthComponent(enemy, health));
+		enemy.addComponent(new PathfinderComponent(enemy, player));
+		
+		return enemy;
 	}
 		
 	public Entity getPlayer() {

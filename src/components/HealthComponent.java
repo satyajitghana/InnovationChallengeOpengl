@@ -12,9 +12,25 @@ public class HealthComponent extends Component{
 
 	private int maxHealth;
 	private float currentHealth;
+	private boolean regen;
+	private float regenRate;
 	
 	private GUI healthbar;
 	private float scaleReductionFactor;
+	
+	public HealthComponent(Entity attachedTo, int maxHealth, GUI healthbar,  boolean regen, float regenRate) {
+		super(ComponentID.health, attachedTo);
+		this.maxHealth = maxHealth;
+		this.currentHealth  = maxHealth;
+		this.healthbar = healthbar;
+		this.regen = regen;
+		this.regenRate = regenRate;
+		
+		scaleReductionFactor = healthbar.getScale().x/maxHealth;
+		
+		Game.guis.add(healthbar);
+		Game.updateComponents.add(this);
+	}
 	
 	public HealthComponent(Entity attachedTo, int maxHealth, GUI healthbar) {
 		super(ComponentID.health, attachedTo);
@@ -45,6 +61,10 @@ public class HealthComponent extends Component{
 			if(attachedTo.id == EntityID.enemy)
 				RoomMap.currentRoom.enemyCount-=1;
 		}
+		
+		if(regen && currentHealth<maxHealth) {
+			increaseHealth(regenRate);
+		}
 	}
 	
 	public void reduceHealth(float damage) {
@@ -58,6 +78,10 @@ public class HealthComponent extends Component{
 	
 	public void increaseHealth(float increase) {
 		this.currentHealth+=increase;
+		if(healthbar!=null) {
+			Vector2f scale = healthbar.getScale();
+			healthbar.setScale(scale.x + (scaleReductionFactor*increase), scale.y);
+		}
 	}
 	
 	public float getCurrentHealth() {

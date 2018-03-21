@@ -61,6 +61,9 @@ public class Room {
 				entities.add(Main.creator.createEnemy(Integer.parseInt(stuff[1]), Integer.parseInt(stuff[2]), Integer.parseInt(stuff[3]), Integer.parseInt(stuff[4]), Integer.parseInt(stuff[5])));
 				enemyCount++;
 			}
+			else if(stuff[0].equals("exploEnemy") && !RoomMap.visted.contains(room_id)) {
+				entities.add(Main.creator.createExploEnemy(Integer.parseInt(stuff[1]), Integer.parseInt(stuff[2]), Integer.parseInt(stuff[3]), Integer.parseInt(stuff[4]), Integer.parseInt(stuff[5])));
+			}
 			else if(stuff[0].equals("gate")) {
 				Entity gate = Main.creator.createGate(Integer.parseInt(stuff[1]), Integer.parseInt(stuff[2]), Integer.parseInt(stuff[3]), Integer.parseInt(stuff[4]), Integer.parseInt(stuff[5]), Integer.parseInt(stuff[6]));
 				entities.add(gate);

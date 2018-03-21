@@ -21,7 +21,7 @@ public class EnemyAttackState extends State{
 
 	@Override
 	public void enter() {
-		attachedTo.addComponent(new MiscComponent(attachedTo, Main.c.followRotation(), attachedTo, target));
+		attachedTo.addComponent(new MiscComponent(attachedTo, Main.callbacks.followRotation(), attachedTo, target));
 
 	}
 
