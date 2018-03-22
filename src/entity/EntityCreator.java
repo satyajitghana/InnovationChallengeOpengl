@@ -11,6 +11,7 @@ import components.PathfinderComponent;
 import components.StateMachineComponent;
 import components.TransformComponent;
 import components.WindowExitTriggerComponent;
+import engine.Game;
 import engine.Loader;
 import engine.Main;
 import engine.Material;
@@ -18,12 +19,14 @@ import fsm.EnemyAttackState;
 import fsm.EnemyIdleState;
 import fsm.StateMachine;
 import gui.GUI;
+import gui.GuiID;
 
 public class EntityCreator {
 	public static final int player_size = 80;
 	public static final float player_speed = 4;
 	
 	private Entity player;
+	private GUI timeFreezeBar;
 	private Material bg;
 	private Light light;
 	private Loader loader;
@@ -38,7 +41,9 @@ public class EntityCreator {
 	public Entity createPlayer(float x, float y, float rot) {
 		this.player = new Entity(EntityID.player);
 		Vector2f playerPos = new Vector2f(x, y);
-		GUI healthbar = new GUI(new Vector2f(-0.84f,0.95f), new Vector2f(0.15f,0.02f), player);
+		GUI healthbar = new GUI(GuiID.healthbar, new Vector2f(-0.84f,0.95f), new Vector2f(0.15f,0.02f), player);
+		timeFreezeBar = new GUI(GuiID.timeFreezeBar, new Vector2f(+0.84f, 0.95f), new Vector2f(Game.timeFreezeGuiScaleX, 0.02f));
+		Game.guis.add(timeFreezeBar);
 		
 		player.addComponent(new TransformComponent(player, playerPos, rot, 1, player_speed));
 		player.addComponent(new MaterialComponent(player, loader.loadToVAO(player_size, player_size, "player"), player_size, player_size));
@@ -53,8 +58,8 @@ public class EntityCreator {
 		
 	}
 	
-	public void createBullet(Vector2f pos, Vector2f dir, float rot) {
-		Entity bullet = new Entity(EntityID.bullet);
+	public void createBullet(Vector2f pos, Vector2f dir, float rot, EntityID type) {
+		Entity bullet = new Entity(type);
 		
 		bullet.addComponent(new TransformComponent(bullet, pos, rot, 1, 10));
 		bullet.addComponent(new MaterialComponent(bullet, loader.loadToVAO(8, 8, "bullet"), 8, 8));
@@ -129,5 +134,9 @@ public class EntityCreator {
 	
 	public Material getBg() {
 		return this.bg;
+	}
+	
+	public GUI getTimeFreezeBar() {
+		return this.timeFreezeBar;
 	}
 }

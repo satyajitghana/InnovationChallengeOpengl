@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
+import engine.Game;
 import engine.Loader;
 import engine.Material;
 import shaders.GUIShader;
@@ -36,14 +37,18 @@ public class GUIRenderer {
 					if(gui.hasTexture()) {
 						GL13.glActiveTexture(GL13.GL_TEXTURE0);
 						GL11.glBindTexture(GL11.GL_TEXTURE_2D, gui.getTexID());
-					}else {
-						shader.renderingHealthBar(true);
+					}else if(gui.getID() == GuiID.healthbar){
+						shader.renderingBar(true);
 						float x = (gui.getAttachedTo().health.getCurrentHealth()/gui.getAttachedTo().health.getMaxHealth())*100; //converts health into value between 0 and 100
-						shader.loadHealthBarColor(Maths.hslToRgb(x*(1.2f/360), 1, 0.5f));
+						shader.loadBarColor(Maths.hslToRgb(x*(1.2f/360), 1, 0.5f));
+					}else if(gui.getID() == GuiID.timeFreezeBar) {
+						shader.renderingBar(true);
+						float x = (Game.getTimeFreezeAmount()/Game.getMaxTimeFreezeAmount())*100;
+						shader.loadBarColor(Maths.hslToRgb(x*(2.2f/360), 1, 0.5f));
 					}
 					
 					GL11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, quad.getVertexCount());
-					shader.renderingHealthBar(false);
+					shader.renderingBar(false);
 				}
 			}
 			GL20.glDisableVertexAttribArray(0);

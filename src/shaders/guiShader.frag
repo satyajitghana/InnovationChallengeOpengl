@@ -5,15 +5,15 @@ in vec2 textureCoords;
 out vec4 frag;
 
 uniform sampler2D textureSampler;
-uniform float renderingHealthBar;
-uniform vec3 healthBarColor;
+uniform float renderingBar;
+uniform vec3 barColor;
 
 void main(){
-	if(renderingHealthBar == 0){
-		frag = texture(textureSampler, textureCoords);
+	if(renderingBar == 1){
+		frag = vec4(barColor, 1.0);
 	}
 	else{
-		frag = vec4(healthBarColor, 1.0);
+		frag = texture(textureSampler, textureCoords);
 	}
 
 }

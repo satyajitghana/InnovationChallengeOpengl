@@ -8,6 +8,7 @@ import components.ComponentID;
 import components.MiscComponent;
 import engine.Main;
 import entity.Entity;
+import entity.EntityID;
 
 public class EnemyAttackState extends State{
 
@@ -35,7 +36,7 @@ public class EnemyAttackState extends State{
 			Vector2f pos = new Vector2f(x, y);
 			Vector2f dir = new Vector2f(target.transform.pos.x - attachedTo.transform.pos.x, target.transform.pos.y - attachedTo.transform.pos.y);
 			dir.normalise();
-			Main.creator.createBullet(pos, dir, attachedTo.transform.rot);
+			Main.creator.createBullet(pos, dir, attachedTo.transform.rot, EntityID.enemyBullet);
 		}
 		
 		if(Main.creator.getPlayer().health.getCurrentHealth()<=0) {

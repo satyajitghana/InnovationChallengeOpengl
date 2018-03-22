@@ -19,17 +19,9 @@ public class HealthComponent extends Component{
 	private float scaleReductionFactor;
 	
 	public HealthComponent(Entity attachedTo, int maxHealth, GUI healthbar,  boolean regen, float regenRate) {
-		super(ComponentID.health, attachedTo);
-		this.maxHealth = maxHealth;
-		this.currentHealth  = maxHealth;
-		this.healthbar = healthbar;
+		this(attachedTo, maxHealth, healthbar);
 		this.regen = regen;
 		this.regenRate = regenRate;
-		
-		scaleReductionFactor = healthbar.getScale().x/maxHealth;
-		
-		Game.guis.add(healthbar);
-		Game.updateComponents.add(this);
 	}
 	
 	public HealthComponent(Entity attachedTo, int maxHealth, GUI healthbar) {
@@ -38,7 +30,7 @@ public class HealthComponent extends Component{
 		this.currentHealth  = maxHealth;
 		this.healthbar = healthbar;
 		
-		scaleReductionFactor = healthbar.getScale().x/maxHealth;
+		this.scaleReductionFactor = healthbar.getScale().x/maxHealth;
 		
 		Game.guis.add(healthbar);
 		Game.updateComponents.add(this);

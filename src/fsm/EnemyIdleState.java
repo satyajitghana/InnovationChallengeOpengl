@@ -11,12 +11,9 @@ public class EnemyIdleState extends State{
 	private int dir;
 	
 	public EnemyIdleState(StateMachine machine, Entity attachedTo, State transitionState) {
-		super(StateID.enemyIdleState, machine, attachedTo);
+		this(machine, attachedTo);
 		this.transitionState = transitionState;
-		this.dir = -1;
-		if(new Random().nextInt(2) == 0) {
-			this.dir = 1;
-		}
+		
 	}
 	
 	public EnemyIdleState(StateMachine machine, Entity attachedTo) {

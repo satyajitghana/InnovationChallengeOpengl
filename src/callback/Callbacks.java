@@ -86,7 +86,7 @@ public class Callbacks {
 					}
 				}
 				
-				if(e.id == EntityID.bullet) {
+				if(e.id == EntityID.enemyBullet && !Game.isTimeFreeze()) {
 					Collision c = player.collisionComponent.getAABB().getCollision(e.collisionComponent.getAABB());
 					if(c.isIntersecting) {
 						e.destroy();

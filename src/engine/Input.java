@@ -6,6 +6,7 @@ import org.lwjgl.util.vector.Vector2f;
 
 import entity.Entity;
 import entity.EntityCreator;
+import entity.EntityID;
 
 public class Input {
 	
@@ -21,6 +22,7 @@ public class Input {
 		
 		if(player == null) return;
 		if(player.health.getCurrentHealth()>0) {
+			
 			if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
 				player.transform.move(0, 1);
 			}
@@ -33,6 +35,18 @@ public class Input {
 			if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
 				player.transform.move(1, 0);
 			}
+				
+			while(Keyboard.next()) {
+				
+				if(Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
+					if(Keyboard.getEventKeyState()) {
+						Game.setTimeFreeze(true);
+					}else {
+						Game.setTimeFreeze(false);
+					}
+				}
+			}
+			
 			
 			while(Mouse.next()) {
 				if(Mouse.getEventButtonState()) {
@@ -42,7 +56,7 @@ public class Input {
 						Vector2f pos = new Vector2f(x, y);
 						Vector2f dir = new Vector2f(Mouse.getX() - player.transform.pos.x, Mouse.getY() - player.transform.pos.y);
 						dir.normalise();
-						Main.creator.createBullet(pos, dir, player.transform.rot);
+						Main.creator.createBullet(pos, dir, player.transform.rot, EntityID.bullet);
 					}
 				}
 			}		
@@ -53,6 +67,8 @@ public class Input {
 				Main.restart();
 			}
 		}
+		
+		//Game.setTimeFreeze(false);
 	}
 	
 	public void setPlayer(Entity player) {

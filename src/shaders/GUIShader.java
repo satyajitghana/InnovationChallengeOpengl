@@ -10,8 +10,8 @@ public class GUIShader extends ShaderProgram{
 	
 	private int location_transformation;
 	private int location_texture;
-	private int location_renderinghHealthbar;
-	private int location_healthBarColor;
+	private int location_renderingBar;
+	private int location_barColor;
 	
 	public GUIShader() {
 		super(VERTEX_SHADER, FRAGMENT_SHADER);
@@ -22,8 +22,8 @@ public class GUIShader extends ShaderProgram{
 	protected void getAllUniformLocations() {
 		location_transformation = super.getUniformLocation("transform");		
 		location_texture = super.getUniformLocation("textureSampler");
-		location_renderinghHealthbar = super.getUniformLocation("renderingHealthBar");
-		location_healthBarColor = super.getUniformLocation("healthBarColor");
+		location_renderingBar = super.getUniformLocation("renderingBar");
+		location_barColor = super.getUniformLocation("barColor");
 	}
 
 	@Override
@@ -42,12 +42,12 @@ public class GUIShader extends ShaderProgram{
 		super.loadMatrix(location_transformation, matrix);
 	}
 	
-	public void renderingHealthBar(boolean value) {
-		super.loadBoolean(location_renderinghHealthbar, value);
+	public void renderingBar(boolean value) {
+		super.loadBoolean(location_renderingBar, value);
 	}
 	
-	public void loadHealthBarColor(Vector3f color) {
-		super.loadVector3f(location_healthBarColor, color);
+	public void loadBarColor(Vector3f color) {
+		super.loadVector3f(location_barColor, color);
 	}
 
 }
