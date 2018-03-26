@@ -8,5 +8,7 @@ public enum ComponentID {
 	misc, 
 	collision,
 	pathfinder,
-	stateMachine;
+	stateMachine,
+	ability,
+	messageListener;
 }

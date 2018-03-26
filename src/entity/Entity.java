@@ -2,12 +2,15 @@ package entity;
 
 import java.util.ArrayList;
 
+import components.AbilityComponent;
 import components.CollisionComponent;
 import components.Component;
 import components.ComponentID;
 import components.HealthComponent;
 import components.MaterialComponent;
+import components.MessageListenerComponent;
 import components.TransformComponent;
+import engine.Main;
 
 public class Entity {
 	
@@ -20,10 +23,15 @@ public class Entity {
 	public HealthComponent health;
 	public MaterialComponent material;
 	public CollisionComponent collisionComponent;
+	public AbilityComponent abilityComponent;
+	public MessageListenerComponent messageListener;
+	
+	private boolean frozen;
 	
 	public Entity(EntityID id) {
 		components = new ArrayList<Component>();
 		this.id = id;
+		this.frozen = false;
 		
 	}
 	
@@ -38,6 +46,10 @@ public class Entity {
 			this.material = (MaterialComponent) c;
 		else if(c.getId() == ComponentID.collision)
 			this.collisionComponent = (CollisionComponent)c;
+		else if(c.getId() == ComponentID.ability)
+			this.abilityComponent = (AbilityComponent)c;
+		else if(c.getId() == ComponentID.messageListener)
+			this.messageListener = (MessageListenerComponent) c;
 
 	}
 	
@@ -54,12 +66,18 @@ public class Entity {
 			this.material = null;
 		else if(id == ComponentID.collision)
 			this.collisionComponent = null;
+		else if(id == ComponentID.ability)
+			this.abilityComponent = null;
+		else if(id == ComponentID.messageListener)
+			this.messageListener = null;
 	}
 	
 	public void destroy() {
 		for(int i=0;i<components.size();i++) {
 			components.get(i).toRemove = true;
 		}
+		
+		Main.creator.removeEntity(this);
 	}
 	
 	public ArrayList<Component> getComponents(){
@@ -74,6 +92,14 @@ public class Entity {
 		}
 		
 		return null;
+	}
+	
+	public boolean isFrozen() {
+		return frozen;
+	}
+	
+	public void setFrozen(boolean frozen) {
+		this.frozen = frozen;
 	}
 
 }

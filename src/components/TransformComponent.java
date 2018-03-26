@@ -26,15 +26,18 @@ public class TransformComponent extends Component{
 	}
 	
 	public void move(float magX, float magY) {
+		if(attachedTo.isFrozen()) return;
 		this.pos.x += magX * speed;
 		this.pos.y += magY * speed;
 	}
 	
 	public void rotate(float rot) {
+		if(attachedTo.isFrozen()) return;
 		this.rot = rot;
 	}
 	
 	public Matrix4f getTransformationMatrix() {
 		return Maths.createTransformationMatrix(pos, rot, scale);
 	}
+
 }

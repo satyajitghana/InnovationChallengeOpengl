@@ -6,6 +6,7 @@ import org.lwjgl.util.vector.Vector2f;
 import engine.Collision;
 import engine.Game;
 import engine.Main;
+import engine.Message;
 import entity.Entity;
 import entity.EntityID;
 import rooms.RoomMap;
@@ -86,7 +87,7 @@ public class Callbacks {
 					}
 				}
 				
-				if(e.id == EntityID.enemyBullet && !Game.isTimeFreeze()) {
+				if(e.id == EntityID.enemyBullet) {
 					Collision c = player.collisionComponent.getAABB().getCollision(e.collisionComponent.getAABB());
 					if(c.isIntersecting) {
 						e.destroy();
@@ -194,6 +195,15 @@ public class Callbacks {
 				
 			}
 			
+		};
+	}
+	
+	public Callback messageHandle() {
+		return (Object[] data, Object...extra)->{
+			Message message = (Message) extra[0];
+			Entity entity = (Entity) data[0];
+			boolean freeze = (message.getMessage().equals("freeze")) ? true : false;
+			entity.setFrozen(freeze);
 		};
 	}
 }

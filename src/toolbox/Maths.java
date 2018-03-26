@@ -68,6 +68,12 @@ public class Maths {
 		return rgb;
 	}
 	
+	public static float clamp(float value, float min, float max) {
+		if(value>max) return max;
+		else if(value<min) return min;
+		return value;
+	}
+	
 	private static float hueToRgb(float p, float q, float t) {
 		 if(t < 0) t += 1;
          if(t > 1) t -= 1;
@@ -76,6 +82,7 @@ public class Maths {
          if(t < 2/3.0f) return p + (q - p) * (2/3.0f - t) * 6;
          return p;
 	}
+	
 	
 	public static Vector2f getNormalizedDeviceSpace(float x, float y) {
 		Vector2f pos = new Vector2f();

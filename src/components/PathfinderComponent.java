@@ -26,6 +26,8 @@ public class PathfinderComponent extends Component{
 	
 	@Override
 	public void update() {
+		if(attachedTo.isFrozen()) return;
+		
 		Vector2f sourceVec = EntitiesMap.getCellVec(attachedTo.transform.pos.x, attachedTo.transform.pos.y);
 		Vector2f destVec = EntitiesMap.getCellVec(target.transform.pos.x, target.transform.pos.y);
 		path = ASearch.getPath(new Pair<Integer, Integer>((int)sourceVec.x, (int)sourceVec.y), new Pair<Integer, Integer>((int)destVec.x, (int)destVec.y));

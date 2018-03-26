@@ -2,11 +2,8 @@ package engine;
 
 import java.util.ArrayList;
 
-import org.lwjgl.util.vector.Vector2f;
-
 import components.Component;
 import components.MaterialComponent;
-import entity.EntityID;
 import gui.GUI;
 import gui.GUIRenderer;
 import shaders.StaticShader;
@@ -16,19 +13,10 @@ public class Game {
 	public static ArrayList<Component> updateComponents = new ArrayList<Component>();
 	public static ArrayList<Component> renderComponents = new ArrayList<Component>();
 	public static ArrayList<GUI> guis = new ArrayList<GUI>();
-	public static float timeFreezeBarDepletionRate = 1f;
-	public static float timeFreezeBarRegenRate = 1/30f;
-	public static float timeFreezeGuiScaleX = 0.15f;
-	public static float timeFreezeAmount = 100;
 	
 	private Renderer renderer;
 	private GUIRenderer guiRenderer;
-	private StaticShader shader;
-	
-	private static boolean game_freeze = false;
-	private static float maxTimeFreezeAmount = 100;
-	private static float scaleFactor = timeFreezeGuiScaleX/maxTimeFreezeAmount;
-	
+	private StaticShader shader;	
 	
 	public Game(Renderer renderer, GUIRenderer guiRenderer, StaticShader shader) {
 		this.renderer = renderer;
@@ -43,25 +31,9 @@ public class Game {
 				updateComponents.remove(c);
 				continue;
 			}
-			if(!game_freeze || c.getAttachedTo().id == EntityID.player || c.getAttachedTo().id == EntityID.bullet) {
-				c.update();
-			}
+			c.update();	
 		}
 		
-		try {
-			if(game_freeze && timeFreezeAmount>0) {
-				decreaseTimeFreezeAmount(timeFreezeBarDepletionRate);
-			}
-			else if(!game_freeze) {
-				increaseTimeFreezeAmount(timeFreezeBarRegenRate);
-			}
-		}catch(NullPointerException e) {
-			return;
-		}
-		
-		if(timeFreezeAmount <= 0) {
-			game_freeze = false;
-		}
 	}
 	
 	public void renderEntities() {
@@ -87,47 +59,5 @@ public class Game {
 	
 	public void renderGUIs() {
 		guiRenderer.render(guis);
-	}
-	
-	private void increaseTimeFreezeAmount(float amount) {
-		if(timeFreezeAmount < maxTimeFreezeAmount) {
-			timeFreezeAmount+=amount;
-			GUI bar = Main.creator.getTimeFreezeBar();
-			Vector2f scale = bar.getScale();
-			
-			if(timeFreezeAmount<maxTimeFreezeAmount) {
-				bar.setScale(scale.x + (scaleFactor*amount), scale.y);
-			}
-		}
-	}
-	
-	private void decreaseTimeFreezeAmount(float amount) {
-		
-		if(timeFreezeAmount>0) {
-			timeFreezeAmount -= amount;
-			GUI bar = Main.creator.getTimeFreezeBar();
-			Vector2f scale = bar.getScale();
-			bar.setScale(scale.x - (scaleFactor*amount), scale.y);
-		}
-	}
-	
-	public static void setTimeFreeze(boolean value) {
-		game_freeze = value;
-	}
-	
-	public static boolean isTimeFreeze() {
-		return game_freeze;
-	}
-	
-	public static void setTimeFreezeAmount(float amount) {
-		timeFreezeAmount+=amount;
-	}
-	
-	public static float getTimeFreezeAmount() {
-		return timeFreezeAmount;
-	}
-	
-	public static float getMaxTimeFreezeAmount() {
-		return maxTimeFreezeAmount;
 	}
 }

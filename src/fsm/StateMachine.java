@@ -6,6 +6,7 @@ public class StateMachine {
 	protected State defaultState;
 		
 	public void update() {
+		if(currentState.getAttachedTo().isFrozen()) return;
 		currentState.update();
 	}
 	

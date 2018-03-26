@@ -41,6 +41,7 @@ public class Main {
 	
 	public static EntityCreator creator;
 	public static Callbacks callbacks;
+	public static MessageHandler messageHandler;
 	
 	public static void main (String args[]) {
 		initDisplay();
@@ -74,7 +75,7 @@ public class Main {
 			frames++;
 			if (System.currentTimeMillis() - timer > 1000) {
 	            timer += 1000;
-	            System.out.println(updates + " ups, " + frames + " fps");
+	            //System.out.println(updates + " ups, " + frames + " fps");
 	            updates = 0;
 	            frames = 0;
 	         }
@@ -96,6 +97,7 @@ public class Main {
 		creator = new EntityCreator(loader);
 		keyIn = new Input();
 		emap = new EntitiesMap();
+		messageHandler = new MessageHandler();
 	}
 	
 	private static void getInput() {

@@ -35,18 +35,14 @@ public class Input {
 			if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
 				player.transform.move(1, 0);
 			}
-				
+	
 			while(Keyboard.next()) {
-				
-				if(Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
-					if(Keyboard.getEventKeyState()) {
-						Game.setTimeFreeze(true);
-					}else {
-						Game.setTimeFreeze(false);
+				if(Keyboard.getEventKeyState()) {
+					if(Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
+						player.abilityComponent.getCurrentAbility().activate();
 					}
 				}
 			}
-			
 			
 			while(Mouse.next()) {
 				if(Mouse.getEventButtonState()) {
